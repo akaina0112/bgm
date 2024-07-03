@@ -241,6 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let index = 0;
 
     mainImg2Div.addEventListener('click', function() {
+      
       if (index < texts.length) {
         const textElement = document.createElement('div');
         textElement.classList.add('text');
@@ -249,6 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
         applyRandomAnimation(textElement);
         index++;
       }
+      console.log('クリックされた');
     });
 
     function applyRandomAnimation(element) {

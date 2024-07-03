@@ -215,32 +215,6 @@
   mainImg2Div.id = 'mainimg2';
   document.body.appendChild(mainImg2Div);
 
-  // テキストコンテナを生成して追加
-  const textContainerDiv = document.createElement('div');
-  textContainerDiv.classList.add('text-container');
-
-  // テキスト1を生成して追加
-  const text1Div = document.createElement('div');
-  text1Div.id = 'text1';
-  text1Div.classList.add('text');
-  text1Div.textContent = '貴方の恋人になりたい';
-  textContainerDiv.appendChild(text1Div);
-
-  // テキスト2を生成して追加
-  const text2Div = document.createElement('div');
-  text2Div.id = 'text2';
-  text2Div.classList.add('text');
-  textContainerDiv.appendChild(text2Div);
-
-  // テキスト3を生成して追加
-  const text3Div = document.createElement('div');
-  text3Div.id = 'text3';
-  text3Div.classList.add('text');
-  textContainerDiv.appendChild(text3Div);
-
-  // 生成したテキストコンテナをbody要素に追加
-  document.body.appendChild(textContainerDiv);
-
   // mainimgをクリックしたら処理を実行
   mainImgDiv.addEventListener('click', function() {
     // mainimgを削除

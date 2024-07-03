@@ -267,7 +267,20 @@
       ];
 
       let index = 0;
+      // mainImg2Divをクリックしたら次のテキストを表示する関数
+      mainImg2Div.addEventListener('click', function() {
+        if (index < texts.length) {
+          const textElement = document.createElement('div');
+          textElement.classList.add('text');
+          textElement.textContent = texts[index];
+          textContainer.appendChild(textElement);
 
+          // ランダムなアニメーションを適用
+          applyRandomAnimation(textElement);
+
+          index++;
+        }
+      });
       // ランダムなアニメーションを適用する関数
       function applyRandomAnimation(element) {
         const animationsIn = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in'];
@@ -295,21 +308,6 @@
           element.classList.remove('shine'); // 光るアニメーションのクラスを削除
         }, 4000);
       }
-
-      // mainImg2Divをクリックしたら次のテキストを表示する関数
-      mainImg2Div.addEventListener('click', function() {
-        if (index < texts.length) {
-          const textElement = document.createElement('div');
-          textElement.classList.add('text');
-          textElement.textContent = texts[index];
-          textContainer.appendChild(textElement);
-
-          // ランダムなアニメーションを適用
-          applyRandomAnimation(textElement);
-
-          index++;
-        }
-      });
   }
 
   // 背景スライドショーを開始する関数

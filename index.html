@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Touhou Little Maid　addon">
 <style>
-  /* CSSスタイルはここに */
   body {
     margin: 0;
     padding: 0;
@@ -39,18 +38,7 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: url(./background.jpg) no-repeat center center/cover;
-    transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-    animation: zoomInOut 10s infinite alternate; /* 背景のズームイン/アウトのアニメーション */
-  }
-
-  @keyframes zoomInOut {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1.1);
-    }
+    display: none;
   }
 
   .text-container {
@@ -72,43 +60,13 @@
   }
 
   /* フェードインアニメーション */
-  .fade-in {
-    animation-name: fadeIn;
-  }
-
-  /* フェードアウトアニメーション */
-  .fade-out {
-    animation-name: fadeOut;
-  }
-
-  /* 右からスライドインアニメーション */
-  .slide-in-right {
-    animation-name: slideInRight;
-  }
-
-  /* 左からスライドインアニメーション */
-  .slide-in-left {
-    animation-name: slideInLeft;
-  }
-
-  /* 右へスライドアウトアニメーション */
-  .slide-out-right {
-    animation-name: slideOutRight;
-  }
-
-  /* 左へスライドアウトアニメーション */
-  .slide-out-left {
-    animation-name: slideOutLeft;
-  }
-
-  /* ズームインアニメーション */
-  .zoom-in {
-    animation-name: zoomIn;
-  }
-
-  /* ズームアウトアニメーション */
-  .zoom-out {
-    animation-name: zoomOut;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   /* 光るアニメーション */
@@ -126,209 +84,66 @@
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     }
   }
-
-  /* キーフレーム定義 */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideOutRight {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes slideOutLeft {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-  }
-
-  @keyframes zoomIn {
-    from {
-      opacity: 0;
-      transform: scale(0);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes zoomOut {
-    from {
-      opacity: 1;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(0);
-    }
-  }
 </style>
 </head>
 
 <body>
 <div id="mainimg"></div>
-<div id="mainimg2" style="display: none;"></div>
+<div id="mainimg2"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const mainImgDiv = document.getElementById('mainimg');
   const mainImg2Div = document.getElementById('mainimg2');
+  const textContainer = document.createElement('div');
+  textContainer.classList.add('text-container');
+  document.body.appendChild(textContainer);
+
+  const texts = [
+    'テキスト1: 貴方の恋人になりたい',
+    'テキスト2: 知らなくても大丈夫',
+    'テキスト3: すれ違いの始まりはささくれみたい',
+    'テキスト4: 恋に落ちている',
+    'テキスト5: こっちを見てよ！',
+    'テキスト6: 恋に落ちている',
+    'テキスト7: 恋に落ちている',
+    'テキスト8: チョコより甘い温度で溶ける'
+  ];
+
+  let index = 0;
 
   mainImgDiv.addEventListener('click', function() {
     mainImgDiv.style.display = 'none';
     mainImg2Div.style.display = 'block';
-
     startTextAnimation();
-    startBackgroundSlideshow();
-    createAndPlayAudio();
   });
 
   function startTextAnimation() {
-    const textContainer = document.createElement('div');
-    textContainer.classList.add('text-container');
-    document.body.appendChild(textContainer);
-
-    const texts = [
-      'テキスト1: 貴方の恋人になりたい',
-      'テキスト2: 知らなくても大丈夫',
-      'テキスト3: すれ違いの始まりはささくれみたい',
-      'テキスト4: 恋に落ちている',
-      'テキスト5: こっちを見てよ！',
-      'テキスト6: 恋に落ちている',
-      'テキスト7: 恋に落ちている',
-      'テキスト8: チョコより甘い温度で溶ける'
-    ];
-
-    let index = 0;
-
-    document.body.addEventListener('click', function() {
+    mainImg2Div.addEventListener('click', function() {
       if (index < texts.length) {
         const textElement = document.createElement('div');
         textElement.classList.add('text');
         textElement.textContent = texts[index];
         textContainer.appendChild(textElement);
-        applyRandomAnimation(textElement);
+        applyAnimation(textElement);
         index++;
       }
     });
 
-    function applyRandomAnimation(element) {
-      const animationsIn = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in'];
-      const animationsOut = ['fade-out', 'slide-out-left', 'slide-out-right', 'zoom-out'];
-      const randomIn = animationsIn[Math.floor(Math.random() * animationsIn.length)];
-      const randomOut = animationsOut[Math.floor(Math.random() * animationsOut.length)];
-
+    function applyAnimation(element) {
       element.style.opacity = '0';
-      element.classList.add(randomIn);
+      element.classList.add('fade-in');
 
       setTimeout(() => {
         element.style.opacity = '1';
-        element.classList.remove(randomIn);
         element.classList.add('shine');
       }, 100);
 
       setTimeout(() => {
-        element.classList.add(randomOut);
-      }, 3000);
-
-      setTimeout(() => {
+        element.classList.remove('fade-in', 'shine');
         element.style.opacity = '0';
-        element.classList.remove(randomOut);
-        element.classList.remove('shine');
       }, 4000);
     }
-  }
-
-  function startBackgroundSlideshow() {
-    const backgrounds = [
-      './images/background.jpg',
-      './images/background2.jpg',
-      './images/background3.jpg',
-      './images/background4.jpg'
-    ];
-    let currentBgIndex = 0;
-
-    function switchBackground() {
-      mainImg2Div.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
-      mainImg2Div.className = `slide${currentBgIndex + 1}`;
-      currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
-    }
-
-    switchBackground();
-    setInterval(switchBackground, 15000);
-  }
-
-  function createAndPlayAudio() {
-    const audioElement = document.createElement('audio');
-    audioElement.id = 'musicplayer';
-    audioElement.loop = true;
-    audioElement.volume = 0.2;
-
-    const sourceElement = document.createElement('source');
-    sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
-    sourceElement.type = 'audio/mpeg';
-
-    audioElement.appendChild(sourceElement);
-    document.body.appendChild(audioElement);
-
-    audioElement.play().then(() => {
-      console.log('音楽が再生されました');
-    }).catch(error => {
-      console.log('音楽の再生に失敗しました:', error);
-    });
-
-    mainImg2Div.addEventListener('click', function() {
-      audioElement.pause();
-    });
   }
 });
 </script>

@@ -251,6 +251,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let index = 0;
 
     document.getElementById('mainimg2').addEventListener('click', function() {
+      
+      console.log('クリックした');
       if (index < texts.length) {
         const textElement = document.createElement('div');
         textElement.classList.add('text');

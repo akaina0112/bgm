@@ -10,7 +10,8 @@
 </head>
 
 <body>
-<script>window.addEventListener('load', function() {
+<script>
+ window.addEventListener('load', function() {
   // CSSを生成して追加
   const style = document.createElement('style');
   style.textContent = `
@@ -29,14 +30,14 @@
     }
 
     /* メイン画像 */
-    #mainimg {
+    #mainimg, #mainimg2 {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: url(./background.jpg) no-repeat center center/cover;
+      background: url(./images/background.jpg) no-repeat center center/cover;
       transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
     }
 
@@ -102,70 +103,7 @@
         transform: translateX(0);
       }
     }
-
-    /* 画像ブロック */
-    #mainimg {
-      clear: left;
-      text-indent: -9999px;
-      position: fixed; /* スクロールしても固定表示させる指定 */
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    /* １枚目 */
-    .slide1 {
-      animation: slide1 15s infinite;
-    }
-    /* 2枚目 */
-    .slide2 {
-      animation: slide2 15s infinite;
-    }
-    /* 3枚目 */
-    .slide3 {
-      animation: slide3 15s infinite;
-    }
-    /* 4枚目 */
-    .slide4 {
-      animation: slide4 15s infinite;
-    }
-
-    @keyframes slide1 {
-      0% { opacity: 1; transform: scale(1.2); }
-      10% { opacity: 1; }
-      20% { opacity: 1; }
-      50% { opacity: 1; }
-      60% { opacity: 1; }
-      100% { opacity: 1; transform: scale(1.7); }
-    }
-
-    @keyframes slide2 {
-      0% { opacity: 1; transform: scale(1.7); }
-      10% { opacity: 1; }
-      20% { opacity: 1; }
-      50% { opacity: 1; }
-      60% { opacity: 1; }
-      100% { opacity: 1; transform: scale(1.2); }
-    }
-
-    @keyframes slide3 {
-      0% { opacity: 1; transform: scale(1.2); }
-      10% { opacity: 1; }
-      20% { opacity: 1; }
-      50% { opacity: 1; }
-      60% { opacity: 1; }
-      100% { opacity: 1; transform: scale(1.7); }
-    }
-
-    @keyframes slide4 {
-      0% { opacity: 1; transform: scale(1.7); }
-      10% { opacity: 1; }
-      20% { opacity: 1; }
-      50% { opacity: 1; }
-      60% { opacity: 1; }
-      100% { opacity: 1; transform: scale(1.2); }
-    }`;
+  `;
   
   // head要素にCSSを追加
   document.head.appendChild(style);
@@ -174,6 +112,11 @@
   const mainImgDiv = document.createElement('div');
   mainImgDiv.id = 'mainimg';
   document.body.appendChild(mainImgDiv);
+
+  // メイン画像2を生成して追加
+  const mainImg2Div = document.createElement('div');
+  mainImg2Div.id = 'mainimg2';
+  document.body.appendChild(mainImg2Div);
 
   // テキストコンテナを生成して追加
   const textContainerDiv = document.createElement('div');
@@ -201,112 +144,133 @@
   // 生成したテキストコンテナをbody要素に追加
   document.body.appendChild(textContainerDiv);
 
-});
-document.body.onclick = function() {
+  // mainimgをクリックしたら処理を実行
+  mainImgDiv.addEventListener('click', function() {
+    // mainimgを削除
+    mainImgDiv.remove();
+
+    // mainimg2を表示
+    mainImg2Div.style.opacity = '1';
+
+    // テキストアニメーション開始
+    startTextAnimation();
+
+    // 背景スライドショーを開始
+    startBackgroundSlideshow();
+
+    // 音楽を再生
     createAndPlayAudio();
-    anime();
-};
+  });
 
-function anime() {
-  const mainimg = document.getElementById('mainimg');
-  const textContainer = document.querySelector('.text-container'); // text-containerを取得する
-  const text1 = document.getElementById('text1');
-  const text2 = document.getElementById('text2');
-  const text3 = document.getElementById('text3');
+  // テキストアニメーション開始関数
+  function startTextAnimation() {
+    const textContainer = document.querySelector('.text-container');
+    const text1 = document.getElementById('text1');
+    const text2 = document.getElementById('text2');
+    const text3 = document.getElementById('text3');
 
-  // メインの画像要素をフェードアウト
-  mainimg.style.opacity = '0';
+    // テキストコンテナをフェードイン
+    textContainer.style.opacity = '1';
 
-  // テキストコンテナをフェードイン
-  textContainer.style.opacity = '1';
-
-  // テキストアニメーション開始
-  text1.classList.add('slide-in');
-  setTimeout(() => {
-    text1.classList.remove('slide-in');
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
+    // テキスト1のスライドインアニメーション
+    text1.classList.add('slide-in');
     setTimeout(() => {
-      text2.classList.remove('slide-in');
-      textContainer.classList.add('slide-out-right');
-      text3.style.opacity = '1';
-      text3.classList.add('slide-in-left');
+      text1.classList.remove('slide-in');
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+      setTimeout(() => {
+        text2.classList.remove('slide-in');
+        textContainer.classList.add('slide-out-right');
+        text3.style.opacity = '1';
+        text3.classList.add('slide-in-left');
+      }, 4000);
+    }, 3000);
 
-      // 背景スライドショーを開始
-      startBackgroundSlideshow();
-    }, 4000);
-  }, 3000);
+    // テキスト2とテキスト3の非表示処理
+    setTimeout(() => {
+      text2.style.opacity = '0';
+      text3.style.opacity = '0';
+    }, 8000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-    text3.style.opacity = '0';
-  }, 8000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = '知らなくても大丈夫';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 13000);
 
-  setTimeout(() => {
-    text2.textContent = '知らなくても大丈夫';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 13000);
+    // テキスト2の再非表示
+    setTimeout(() => {
+      text2.style.opacity = '0';
+    }, 18000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-  }, 18000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = 'すれ違いの始まりはささくれみたい';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 19000);
 
-  setTimeout(() => {
-    text2.textContent = 'すれ違いの始まりはささくれみたい';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 19000);
+    // テキスト2の再非表示
+    setTimeout(() => {
+      text2.style.opacity = '0';
+    }, 23000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-  }, 23000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = '恋に落ちている';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 24000);
 
-  setTimeout(() => {
-    text2.textContent = '恋に落ちている';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 24000);
+    // テキスト2の再非表示
+    setTimeout(() => {
+      text2.style.opacity = '0';
+    }, 28000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-  }, 28000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = 'こっちを見てよ！';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 30000);
 
-  setTimeout(() => {
-    text2.textContent = 'こっちを見てよ！';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 30000);
+    // テキスト2の再非表示
+    setTimeout(() => {
+      text2.style.opacity = '0';
+    }, 33000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-  }, 33000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = '恋に落ちている';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 35000);
 
-  setTimeout(() => {
-    text2.textContent = '恋に落ちている';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 35000);
+    // テキスト2の再非表示
+    setTimeout(() => {
+      text2.style.opacity = '0';
+    }, 38000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-  }, 38000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = '恋に落ちている';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 42000);
 
-  setTimeout(() => {
-    text2.textContent = '恋に落ちている';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 42000);
+    // テキスト2の再非表示
+    setTimeout(() => {
+      text2.style.opacity = '0';
+    }, 46000);
 
-  setTimeout(() => {
-    text2.style.opacity = '0';
-  }, 46000);
-
-  setTimeout(() => {
-    text2.textContent = 'チョコより甘い温度で溶ける';
-    text2.style.opacity = '1';
-    text2.classList.add('slide-in');
-  }, 47000);
+    // テキスト2の内容変更と再表示
+    setTimeout(() => {
+      text2.textContent = 'チョコより甘い温度で溶ける';
+      text2.style.opacity = '1';
+      text2.classList.add('slide-in');
+    }, 47000);
+  }
 
   // 背景スライドショーを開始する関数
   function startBackgroundSlideshow() {
@@ -319,8 +283,9 @@ function anime() {
     let currentBgIndex = 0;
 
     function switchBackground() {
-      mainimg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
-      mainimg.className = `slide${currentBgIndex + 1}`;
+      const currentImg = document.querySelector('#mainimg, #mainimg2');
+      currentImg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
+      currentImg.className = `slide${currentBgIndex + 1}`;
       currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
     }
 
@@ -330,33 +295,36 @@ function anime() {
     // 15秒ごとに背景画像を切り替える
     setInterval(switchBackground, 15000);
   }
-}
 
-function createAndPlayAudio() {
-  // 音楽プレーヤーを作成
-  const audioElement = document.createElement('audio');
-  audioElement.id = 'musicplayer';
-  audioElement.loop = true; // ループ再生
-  audioElement.volume = 0.2; // 音量設定
+  // 音楽を生成して再生する関数
+  function createAndPlayAudio() {
+    // 音楽プレーヤーを作成
+    const audioElement = document.createElement('audio');
+    audioElement.id = 'musicplayer';
+    audioElement.loop = true; // ループ再生
+    audioElement.volume = 0.2; // 音量設定
 
-  // 音楽ファイルの設定
-  const sourceElement = document.createElement('source');
-  sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
-  sourceElement.type = 'audio/mpeg';
+    // 音楽ファイルの設定
+    const sourceElement = document.createElement('source');
+    sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
+    sourceElement.type = 'audio/mpeg';
 
-  audioElement.appendChild(sourceElement); // <audio>要素に音楽ファイルを追加
-  document.body.appendChild(audioElement); // <body>要素に<audio>要素を追加
+    audioElement.appendChild(sourceElement); // <audio>要素に音楽ファイルを追加
+    document.body.appendChild(audioElement); // <body>要素に<audio>要素を追加
 
-  // 音楽を再生する
-  audioElement.play().then(() => {
-    console.log('音楽が再生されました');
-  }).catch(error => {
-    console.log('音楽の再生に失敗しました:', error);
-  });
+    // 音楽を再生する
+    audioElement.play().then(() => {
+      console.log('音楽が再生されました');
+    }).catch(error => {
+      console.log('音楽の再生に失敗しました:', error);
+    });
 
-  // イベントリスナーを削除（再生が開始されたら不要）
-  mainimg.removeEventListener('click', createAndPlayAudio);
-}
+    // mainimg2をクリックしたら音楽を停止する
+    mainImg2Div.addEventListener('click', function() {
+      audioElement.pause(); // 音楽を停止
+    });
+  }
+});
 </script>
 
 </body>

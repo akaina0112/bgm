@@ -6,70 +6,59 @@
 <title>Touhou Little Maid</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Touhou Little Maid　addon">
+<style>
+  /* CSSスタイルはここに */
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-</head>
+  #mainimg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: url(./background.jpg) no-repeat center center/cover;
+    transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
+  }
 
-<body>
-<script>
-  window.addEventListener('load', function() {
-    // CSSを生成して追加
-    const style = document.createElement('style');
-    style.textContent = `
-      /* 共通のスタイル */
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background: #000;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
+  #mainimg2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
+  }
 
-      /* メイン画像 */
-      #mainimg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: url(./background.jpg) no-repeat center center/cover;
-        transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-      } 
-      /* メイン画像 */
-     #mainimg2 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-      }
+  .text-container {
+    position: relative;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
 
-      /* テキストコンテナ */
-      .text-container {
-        position: relative;
-        text-align: center;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-      }
-
-      /* テキスト */
-      .text {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        opacity: 0;
-        animation-duration: 1s;
-        animation-fill-mode: forwards;
-        font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
-        color: #ff69b4; /* ピンク色 */
-        text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
-      }
+  .text {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
+    color: #ff69b4; /* ピンク色 */
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
+  }
 
       /* フェードインアニメーション */
       .fade-in {
@@ -210,107 +199,85 @@
           opacity: 0;
           transform: scale(0);
         }
-      }  `;
-    
-    // head要素にCSSを追加
-    document.head.appendChild(style);
+      }  
+</style>
+</head>
 
-    // メイン画像を生成して追加
-    const mainImgDiv = document.createElement('div');
-    mainImgDiv.id = 'mainimg';
-    document.body.appendChild(mainImgDiv);
+<body>
+<div id="mainimg"></div>
+<div id="mainimg2" style="display: none;"></div>
 
-    // メイン画像2を生成して追加
-    const mainImg2Div = document.createElement('div');
-    mainImg2Div.id = 'mainimg2';
-    mainImg2Div.style.display = 'none'; // mainimg2を最初は非表示にする
-    document.body.appendChild(mainImg2Div);
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const mainImgDiv = document.getElementById('mainimg');
+  const mainImg2Div = document.getElementById('mainimg2');
+    mainImgDiv.style.display = 'block';
+    mainImg2Div.style.display = 'none';
+  mainImgDiv.addEventListener('click', function() {
+    mainImgDiv.style.display = 'none';
+    mainImg2Div.style.display = 'block';
 
-    // mainimgをクリックしたら処理を実行
-    mainImgDiv.addEventListener('click', function() {
-      // mainimgを削除
-      mainImgDiv.style.display = 'none';
+    startTextAnimation();
+    startBackgroundSlideshow();
+    createAndPlayAudio();
+  });
 
-      // mainimg2を表示
-      mainImg2Div.style.display = 'block';
+  function startTextAnimation() {
+    const textContainer = document.createElement('div');
+    textContainer.classList.add('text-container');
+    document.body.appendChild(textContainer);
 
-      // テキストアニメーション開始
-      startTextAnimation();
+    const texts = [
+      'テキスト1: 貴方の恋人になりたい',
+      'テキスト2: 知らなくても大丈夫',
+      'テキスト3: すれ違いの始まりはささくれみたい',
+      'テキスト4: 恋に落ちている',
+      'テキスト5: こっちを見てよ！',
+      'テキスト6: 恋に落ちている',
+      'テキスト7: 恋に落ちている',
+      'テキスト8: チョコより甘い温度で溶ける'
+    ];
 
-      // 背景スライドショーを開始
-      startBackgroundSlideshow();
+    let index = 0;
 
-      // 音楽を再生
-      createAndPlayAudio();
+    mainImg2Div.addEventListener('click', function() {
+      if (index < texts.length) {
+        const textElement = document.createElement('div');
+        textElement.classList.add('text');
+        textElement.textContent = texts[index];
+        textContainer.appendChild(textElement);
+        applyRandomAnimation(textElement);
+        index++;
+      }
     });
 
-    // mainimgDivを表示する
-    mainImgDiv.style.display = 'block';
+    function applyRandomAnimation(element) {
+      const animationsIn = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in'];
+      const animationsOut = ['fade-out', 'slide-out-left', 'slide-out-right', 'zoom-out'];
+      const randomIn = animationsIn[Math.floor(Math.random() * animationsIn.length)];
+      const randomOut = animationsOut[Math.floor(Math.random() * animationsOut.length)];
 
-  // テキストアニメーション開始関数
-  function startTextAnimation() {
-      const mainImg2Div = document.getElementById('mainImg2');
-      const textContainer = document.createElement('div');
-      textContainer.classList.add('text-container');
-      document.body.appendChild(textContainer);
+      element.style.opacity = '0';
+      element.classList.add(randomIn);
 
-      // テキストを定義
-      const texts = [
-        'テキスト1: 貴方の恋人になりたい',
-        'テキスト2: 知らなくても大丈夫',
-        'テキスト3: すれ違いの始まりはささくれみたい',
-        'テキスト4: 恋に落ちている',
-        'テキスト5: こっちを見てよ！',
-        'テキスト6: 恋に落ちている',
-        'テキスト7: 恋に落ちている',
-        'テキスト8: チョコより甘い温度で溶ける'
-      ];
+      setTimeout(() => {
+        element.style.opacity = '1';
+        element.classList.remove(randomIn);
+        element.classList.add('shine');
+      }, 100);
 
-      let index = 0;
-      // mainImg2Divをクリックしたら次のテキストを表示する関数
-      mainImg2Div.addEventListener('click', function() {
-        if (index < texts.length) {
-          const textElement = document.createElement('div');
-          textElement.classList.add('text');
-          textElement.textContent = texts[index];
-          textContainer.appendChild(textElement);
+      setTimeout(() => {
+        element.classList.add(randomOut);
+      }, 3000);
 
-          // ランダムなアニメーションを適用
-          applyRandomAnimation(textElement);
-
-          index++;
-        }
-      });
-      // ランダムなアニメーションを適用する関数
-      function applyRandomAnimation(element) {
-        const animationsIn = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in'];
-        const animationsOut = ['fade-out', 'slide-out-left', 'slide-out-right', 'zoom-out'];
-        const randomIn = animationsIn[Math.floor(Math.random() * animationsIn.length)];
-        const randomOut = animationsOut[Math.floor(Math.random() * animationsOut.length)];
-
-        // テキストのスタイルとアニメーションを設定
+      setTimeout(() => {
         element.style.opacity = '0';
-        element.classList.add(randomIn);
-
-        setTimeout(() => {
-          element.style.opacity = '1';
-          element.classList.remove(randomIn);
-          element.classList.add('shine'); // 光るアニメーションのクラスを追加
-        }, 100);
-
-        setTimeout(() => {
-          element.classList.add(randomOut);
-        }, 3000);
-
-        setTimeout(() => {
-          element.style.opacity = '0';
-          element.classList.remove(randomOut);
-          element.classList.remove('shine'); // 光るアニメーションのクラスを削除
-        }, 4000);
-      }
+        element.classList.remove(randomOut);
+        element.classList.remove('shine');
+      }, 4000);
+    }
   }
 
-  // 背景スライドショーを開始する関数
   function startBackgroundSlideshow() {
     const backgrounds = [
       './images/background.jpg',
@@ -321,45 +288,36 @@
     let currentBgIndex = 0;
 
     function switchBackground() {
-      const currentImg = document.querySelector('#mainimg2');
-      currentImg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
-      currentImg.className = `slide${currentBgIndex + 1}`;
+      mainImg2Div.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
+      mainImg2Div.className = `slide${currentBgIndex + 1}`;
       currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
     }
 
-    // 初期背景画像を設定
     switchBackground();
-
-    // 15秒ごとに背景画像を切り替える
     setInterval(switchBackground, 15000);
   }
 
-  // 音楽を生成して再生する関数
   function createAndPlayAudio() {
-    // 音楽プレーヤーを作成
     const audioElement = document.createElement('audio');
     audioElement.id = 'musicplayer';
-    audioElement.loop = true; // ループ再生
-    audioElement.volume = 0.2; // 音量設定
+    audioElement.loop = true;
+    audioElement.volume = 0.2;
 
-    // 音楽ファイルの設定
     const sourceElement = document.createElement('source');
     sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
     sourceElement.type = 'audio/mpeg';
 
-    audioElement.appendChild(sourceElement); // <audio>要素に音楽ファイルを追加
-    document.body.appendChild(audioElement); // <body>要素に<audio>要素を追加
+    audioElement.appendChild(sourceElement);
+    document.body.appendChild(audioElement);
 
-    // 音楽を再生する
     audioElement.play().then(() => {
       console.log('音楽が再生されました');
     }).catch(error => {
       console.log('音楽の再生に失敗しました:', error);
     });
 
-    // mainimg2をクリックしたら音楽を停止する
     mainImg2Div.addEventListener('click', function() {
-      audioElement.pause(); // 音楽を停止
+      audioElement.pause();
     });
   }
 });

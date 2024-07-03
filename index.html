@@ -139,12 +139,12 @@ window.addEventListener('load', function() {
 
   // 生成したテキストコンテナをbody要素に追加
   document.body.appendChild(textContainerDiv);
-});
-
-document.body.addEventListener('click', function() {
     mainimg.style.opacity = '0'; // メインの画像要素をフェードアウト
     textContainer.style.opacity = '1'; // テキストコンテナをフェードイン
     overlay.style.display = 'block'; // オーバーレイを表示
+});
+
+document.body.addEventListener('click', function() {
 
     // テキストアニメーション開始
     text1.classList.add('slide-in'); // 貴方の恋人になりたいを表示

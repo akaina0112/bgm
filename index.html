@@ -261,6 +261,7 @@
 
   // テキストアニメーション開始関数
   function startTextAnimation() {
+    window.addEventListener('load', function() {
       const mainImg2Div = document.getElementById('mainImg2');
       const textContainer = document.createElement('div');
       textContainer.classList.add('text-container');
@@ -322,6 +323,7 @@
           index++;
         }
       });
+    });
   }
 
   // 背景スライドショーを開始する関数

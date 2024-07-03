@@ -11,226 +11,231 @@
 
 <body>
 <script>
- window.addEventListener('load', function() {
-  // CSSを生成して追加
-  const style = document.createElement('style');
-  style.textContent = `
-    /* 共通のスタイル */
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    /* メイン画像 */
-    #mainimg, #mainimg2 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: url(./images/background.jpg) no-repeat center center/cover;
-      transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-    }
-
-    /* テキストコンテナ */
-    .text-container {
-      position: relative;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    /* テキスト */
-    .text {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation-duration: 1s;
-      animation-fill-mode: forwards;
-      font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
-      color: #ff69b4; /* ピンク色 */
-      text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
-    }
-
-    /* フェードインアニメーション */
-    .fade-in {
-      animation-name: fadeIn;
-    }
-
-    /* フェードアウトアニメーション */
-    .fade-out {
-      animation-name: fadeOut;
-    }
-
-    /* 右からスライドインアニメーション */
-    .slide-in-right {
-      animation-name: slideInRight;
-    }
-
-    /* 左からスライドインアニメーション */
-    .slide-in-left {
-      animation-name: slideInLeft;
-    }
-
-    /* 右へスライドアウトアニメーション */
-    .slide-out-right {
-      animation-name: slideOutRight;
-    }
-
-    /* 左へスライドアウトアニメーション */
-    .slide-out-left {
-      animation-name: slideOutLeft;
-    }
-
-    /* ズームインアニメーション */
-    .zoom-in {
-      animation-name: zoomIn;
-    }
-
-    /* ズームアウトアニメーション */
-    .zoom-out {
-      animation-name: zoomOut;
-    }
-
-    /* 光るアニメーション */
-    @keyframes shine {
-      0% {
-        opacity: 0.5;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  window.addEventListener('load', function() {
+    // CSSを生成して追加
+    const style = document.createElement('style');
+    style.textContent = `
+      /* 共通のスタイル */
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
       }
-      50% {
-        opacity: 1;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-      }
-      100% {
-        opacity: 0.5;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-      }
-    }
 
-    /* キーフレーム定義 */
-    @keyframes fadeIn {
-      from {
+      /* メイン画像 */
+      #mainimg, #mainimg2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: url(./images/background.jpg) no-repeat center center/cover;
+        transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
+      }
+
+      /* テキストコンテナ */
+      .text-container {
+        position: relative;
+        text-align: center;
         opacity: 0;
+        transition: opacity 1s ease-in-out;
       }
-      to {
-        opacity: 1;
-      }
-    }
 
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
-      to {
+      /* テキスト */
+      .text {
+        font-size: 2rem;
+        margin-bottom: 20px;
         opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
+        color: #ff69b4; /* ピンク色 */
+        text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
       }
-    }
 
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(100%);
+      /* フェードインアニメーション */
+      .fade-in {
+        animation-name: fadeIn;
       }
-      to {
-        opacity: 1;
-        transform: translateX(0);
+
+      /* フェードアウトアニメーション */
+      .fade-out {
+        animation-name: fadeOut;
       }
-    }
 
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-100%);
+      /* 右からスライドインアニメーション */
+      .slide-in-right {
+        animation-name: slideInRight;
       }
-      to {
-        opacity: 1;
-        transform: translateX(0);
+
+      /* 左からスライドインアニメーション */
+      .slide-in-left {
+        animation-name: slideInLeft;
       }
-    }
 
-    @keyframes slideOutRight {
-      from {
-        opacity: 1;
-        transform: translateX(0);
+      /* 右へスライドアウトアニメーション */
+      .slide-out-right {
+        animation-name: slideOutRight;
       }
-      to {
-        opacity: 0;
-        transform: translateX(100%);
+
+      /* 左へスライドアウトアニメーション */
+      .slide-out-left {
+        animation-name: slideOutLeft;
       }
-    }
 
-    @keyframes slideOutLeft {
-      from {
-        opacity: 1;
-        transform: translateX(0);
+      /* ズームインアニメーション */
+      .zoom-in {
+        animation-name: zoomIn;
       }
-      to {
-        opacity: 0;
-        transform: translateX(-100%);
+
+      /* ズームアウトアニメーション */
+      .zoom-out {
+        animation-name: zoomOut;
       }
-    }
 
-    @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: scale(0);
+      /* 光るアニメーション */
+      @keyframes shine {
+        0% {
+          opacity: 0.5;
+          text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        50% {
+          opacity: 1;
+          text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+        100% {
+          opacity: 0.5;
+          text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
       }
-      to {
-        opacity: 1;
-        transform: scale(1);
+
+      /* キーフレーム定義 */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
-    }
 
-    @keyframes zoomOut {
-      from {
-        opacity: 1;
-        transform: scale(1);
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
       }
-      to {
-        opacity: 0;
-        transform: scale(0);
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
       }
-    }  `;
-  
-  // head要素にCSSを追加
-  document.head.appendChild(style);
 
-  // メイン画像を生成して追加
-  const mainImgDiv = document.createElement('div');
-  mainImgDiv.id = 'mainimg';
-  document.body.appendChild(mainImgDiv);
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
 
-  // メイン画像2を生成して追加
-  const mainImg2Div = document.createElement('div');
-  mainImg2Div.id = 'mainimg2';
-  document.body.appendChild(mainImg2Div);
+      @keyframes slideOutRight {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+      }
 
-  // mainimgをクリックしたら処理を実行
-  mainImgDiv.addEventListener('click', function() {
-    // mainimgを削除
-    mainImgDiv.remove();
+      @keyframes slideOutLeft {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+      }
 
-    // mainimg2を表示
-    mainImg2Div.style.opacity = '1';
+      @keyframes zoomIn {
+        from {
+          opacity: 0;
+          transform: scale(0);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-    // テキストアニメーション開始
-    startTextAnimation();
+      @keyframes zoomOut {
+        from {
+          opacity: 1;
+          transform: scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: scale(0);
+        }
+      }  `;
+    
+    // head要素にCSSを追加
+    document.head.appendChild(style);
 
-    // 背景スライドショーを開始
-    startBackgroundSlideshow();
+    // メイン画像を生成して追加
+    const mainImgDiv = document.createElement('div');
+    mainImgDiv.id = 'mainimg';
+    document.body.appendChild(mainImgDiv);
 
-    // 音楽を再生
-    createAndPlayAudio();
+    // メイン画像2を生成して追加
+    const mainImg2Div = document.createElement('div');
+    mainImg2Div.id = 'mainimg2';
+    mainImg2Div.style.display = 'none'; // mainimg2を最初は非表示にする
+    document.body.appendChild(mainImg2Div);
+
+    // mainimgをクリックしたら処理を実行
+    mainImgDiv.addEventListener('click', function() {
+      // mainimgを削除
+      mainImgDiv.style.display = 'none';
+
+      // mainimg2を表示
+      mainImg2Div.style.display = 'block';
+
+      // テキストアニメーション開始
+      startTextAnimation();
+
+      // 背景スライドショーを開始
+      startBackgroundSlideshow();
+
+      // 音楽を再生
+      createAndPlayAudio();
+    });
+
+    // mainimgDivを表示する
+    mainImgDiv.style.display = 'block';
   });
 
   // テキストアニメーション開始関数

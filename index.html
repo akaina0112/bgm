@@ -53,32 +53,108 @@
     .text {
       font-size: 2rem;
       margin-bottom: 20px;
+      opacity: 0;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
+      color: #ff69b4; /* ピンク色 */
+      text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
     }
 
-    /* テキストのスライドインアニメーション */
-    .slide-in {
-      animation: slideIn 2s forwards;
+    /* フェードインアニメーション */
+    .fade-in {
+      animation-name: fadeIn;
     }
 
-    /* 右へスライドアウト */
-    .slide-out-right {
-      animation: slideOutRight 2s forwards;
+    /* フェードアウトアニメーション */
+    .fade-out {
+      animation-name: fadeOut;
     }
 
-    /* 左からスライドイン */
+    /* 右からスライドインアニメーション */
+    .slide-in-right {
+      animation-name: slideInRight;
+    }
+
+    /* 左からスライドインアニメーション */
     .slide-in-left {
-      animation: slideInLeft 2s forwards;
+      animation-name: slideInLeft;
     }
 
-    /* キーフレーム */
-    @keyframes slideIn {
+    /* 右へスライドアウトアニメーション */
+    .slide-out-right {
+      animation-name: slideOutRight;
+    }
+
+    /* 左へスライドアウトアニメーション */
+    .slide-out-left {
+      animation-name: slideOutLeft;
+    }
+
+    /* ズームインアニメーション */
+    .zoom-in {
+      animation-name: zoomIn;
+    }
+
+    /* ズームアウトアニメーション */
+    .zoom-out {
+      animation-name: zoomOut;
+    }
+
+    /* 光るアニメーション */
+    @keyframes shine {
+      0% {
+        opacity: 0.5;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+      }
+      100% {
+        opacity: 0.5;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    /* キーフレーム定義 */
+    @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: scale(0.5);
       }
       to {
         opacity: 1;
-        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
       }
     }
 
@@ -93,17 +169,38 @@
       }
     }
 
-    @keyframes slideInLeft {
+    @keyframes slideOutLeft {
       from {
-        opacity: 0;
-        transform: translateX(-100%);
-      }
-      to {
         opacity: 1;
         transform: translateX(0);
       }
+      to {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
     }
-  `;
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes zoomOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }  `;
   
   // head要素にCSSを追加
   document.head.appendChild(style);
@@ -164,112 +261,67 @@
 
   // テキストアニメーション開始関数
   function startTextAnimation() {
-    const textContainer = document.querySelector('.text-container');
-    const text1 = document.getElementById('text1');
-    const text2 = document.getElementById('text2');
-    const text3 = document.getElementById('text3');
+      const mainImg2Div = document.getElementById('mainImg2');
+      const textContainer = document.createElement('div');
+      textContainer.classList.add('text-container');
+      document.body.appendChild(textContainer);
 
-    // テキストコンテナをフェードイン
-    textContainer.style.opacity = '1';
+      // テキストを定義
+      const texts = [
+        'テキスト1: 貴方の恋人になりたい',
+        'テキスト2: 知らなくても大丈夫',
+        'テキスト3: すれ違いの始まりはささくれみたい',
+        'テキスト4: 恋に落ちている',
+        'テキスト5: こっちを見てよ！',
+        'テキスト6: 恋に落ちている',
+        'テキスト7: 恋に落ちている',
+        'テキスト8: チョコより甘い温度で溶ける'
+      ];
 
-    // テキスト1のスライドインアニメーション
-    text1.classList.add('slide-in');
-    setTimeout(() => {
-      text1.classList.remove('slide-in');
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-      setTimeout(() => {
-        text2.classList.remove('slide-in');
-        textContainer.classList.add('slide-out-right');
-        text3.style.opacity = '1';
-        text3.classList.add('slide-in-left');
-      }, 4000);
-    }, 3000);
+      let index = 0;
 
-    // テキスト2とテキスト3の非表示処理
-    setTimeout(() => {
-      text2.style.opacity = '0';
-      text3.style.opacity = '0';
-    }, 8000);
+      // ランダムなアニメーションを適用する関数
+      function applyRandomAnimation(element) {
+        const animationsIn = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in'];
+        const animationsOut = ['fade-out', 'slide-out-left', 'slide-out-right', 'zoom-out'];
+        const randomIn = animationsIn[Math.floor(Math.random() * animationsIn.length)];
+        const randomOut = animationsOut[Math.floor(Math.random() * animationsOut.length)];
 
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = '知らなくても大丈夫';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 13000);
+        // テキストのスタイルとアニメーションを設定
+        element.style.opacity = '0';
+        element.classList.add(randomIn);
 
-    // テキスト2の再非表示
-    setTimeout(() => {
-      text2.style.opacity = '0';
-    }, 18000);
+        setTimeout(() => {
+          element.style.opacity = '1';
+          element.classList.remove(randomIn);
+          element.classList.add('shine'); // 光るアニメーションのクラスを追加
+        }, 100);
 
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = 'すれ違いの始まりはささくれみたい';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 19000);
+        setTimeout(() => {
+          element.classList.add(randomOut);
+        }, 3000);
 
-    // テキスト2の再非表示
-    setTimeout(() => {
-      text2.style.opacity = '0';
-    }, 23000);
+        setTimeout(() => {
+          element.style.opacity = '0';
+          element.classList.remove(randomOut);
+          element.classList.remove('shine'); // 光るアニメーションのクラスを削除
+        }, 4000);
+      }
 
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = '恋に落ちている';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 24000);
+      // mainImg2Divをクリックしたら次のテキストを表示する関数
+      mainImg2Div.addEventListener('click', function() {
+        if (index < texts.length) {
+          const textElement = document.createElement('div');
+          textElement.classList.add('text');
+          textElement.textContent = texts[index];
+          textContainer.appendChild(textElement);
 
-    // テキスト2の再非表示
-    setTimeout(() => {
-      text2.style.opacity = '0';
-    }, 28000);
+          // ランダムなアニメーションを適用
+          applyRandomAnimation(textElement);
 
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = 'こっちを見てよ！';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 30000);
-
-    // テキスト2の再非表示
-    setTimeout(() => {
-      text2.style.opacity = '0';
-    }, 33000);
-
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = '恋に落ちている';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 35000);
-
-    // テキスト2の再非表示
-    setTimeout(() => {
-      text2.style.opacity = '0';
-    }, 38000);
-
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = '恋に落ちている';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 42000);
-
-    // テキスト2の再非表示
-    setTimeout(() => {
-      text2.style.opacity = '0';
-    }, 46000);
-
-    // テキスト2の内容変更と再表示
-    setTimeout(() => {
-      text2.textContent = 'チョコより甘い温度で溶ける';
-      text2.style.opacity = '1';
-      text2.classList.add('slide-in');
-    }, 47000);
+          index++;
+        }
+      });
   }
 
   // 背景スライドショーを開始する関数
@@ -283,7 +335,7 @@
     let currentBgIndex = 0;
 
     function switchBackground() {
-      const currentImg = document.querySelector('#mainimg, #mainimg2');
+      const currentImg = document.querySelector('#mainimg2');
       currentImg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
       currentImg.className = `slide${currentBgIndex + 1}`;
       currentBgIndex = (currentBgIndex + 1) % backgrounds.length;

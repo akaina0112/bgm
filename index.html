@@ -39,7 +39,18 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    background: url(./background.jpg) no-repeat center center/cover;
     transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
+    animation: zoomInOut 10s infinite alternate; /* 背景のズームイン/アウトのアニメーション */
+  }
+
+  @keyframes zoomInOut {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
   }
 
   .text-container {
@@ -60,146 +71,146 @@
     text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
   }
 
-      /* フェードインアニメーション */
-      .fade-in {
-        animation-name: fadeIn;
-      }
+  /* フェードインアニメーション */
+  .fade-in {
+    animation-name: fadeIn;
+  }
 
-      /* フェードアウトアニメーション */
-      .fade-out {
-        animation-name: fadeOut;
-      }
+  /* フェードアウトアニメーション */
+  .fade-out {
+    animation-name: fadeOut;
+  }
 
-      /* 右からスライドインアニメーション */
-      .slide-in-right {
-        animation-name: slideInRight;
-      }
+  /* 右からスライドインアニメーション */
+  .slide-in-right {
+    animation-name: slideInRight;
+  }
 
-      /* 左からスライドインアニメーション */
-      .slide-in-left {
-        animation-name: slideInLeft;
-      }
+  /* 左からスライドインアニメーション */
+  .slide-in-left {
+    animation-name: slideInLeft;
+  }
 
-      /* 右へスライドアウトアニメーション */
-      .slide-out-right {
-        animation-name: slideOutRight;
-      }
+  /* 右へスライドアウトアニメーション */
+  .slide-out-right {
+    animation-name: slideOutRight;
+  }
 
-      /* 左へスライドアウトアニメーション */
-      .slide-out-left {
-        animation-name: slideOutLeft;
-      }
+  /* 左へスライドアウトアニメーション */
+  .slide-out-left {
+    animation-name: slideOutLeft;
+  }
 
-      /* ズームインアニメーション */
-      .zoom-in {
-        animation-name: zoomIn;
-      }
+  /* ズームインアニメーション */
+  .zoom-in {
+    animation-name: zoomIn;
+  }
 
-      /* ズームアウトアニメーション */
-      .zoom-out {
-        animation-name: zoomOut;
-      }
+  /* ズームアウトアニメーション */
+  .zoom-out {
+    animation-name: zoomOut;
+  }
 
-      /* 光るアニメーション */
-      @keyframes shine {
-        0% {
-          opacity: 0.5;
-          text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        50% {
-          opacity: 1;
-          text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-        }
-        100% {
-          opacity: 0.5;
-          text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-      }
+  /* 光るアニメーション */
+  @keyframes shine {
+    0% {
+      opacity: 0.5;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      opacity: 1;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+    100% {
+      opacity: 0.5;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+  }
 
-      /* キーフレーム定義 */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
+  /* キーフレーム定義 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-      @keyframes fadeOut {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 
-      @keyframes slideInRight {
-        from {
-          opacity: 0;
-          transform: translateX(100%);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
-      @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-100%);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
-      @keyframes slideOutRight {
-        from {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateX(100%);
-        }
-      }
+  @keyframes slideOutRight {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
 
-      @keyframes slideOutLeft {
-        from {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateX(-100%);
-        }
-      }
+  @keyframes slideOutLeft {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
 
-      @keyframes zoomIn {
-        from {
-          opacity: 0;
-          transform: scale(0);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 
-      @keyframes zoomOut {
-        from {
-          opacity: 1;
-          transform: scale(1);
-        }
-        to {
-          opacity: 0;
-          transform: scale(0);
-        }
-      }  
+  @keyframes zoomOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
 </style>
 </head>
 
@@ -208,7 +219,7 @@
 <div id="mainimg2" style="display: none;"></div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   const mainImgDiv = document.getElementById('mainimg');
   const mainImg2Div = document.getElementById('mainimg2');
 

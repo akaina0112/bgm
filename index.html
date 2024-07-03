@@ -139,98 +139,236 @@ window.addEventListener('load', function() {
 
   // 生成したテキストコンテナをbody要素に追加
   document.body.appendChild(textContainerDiv);
-    mainimg.style.opacity = '0'; // メインの画像要素をフェードアウト
-    textContainer.style.opacity = '1'; // テキストコンテナをフェードイン
-    overlay.style.display = 'block'; // オーバーレイを表示
 });
 
 document.body.addEventListener('click', function() {
+   createAndPlayAudio();
+   anime();
+});
+function anime() {
+    const mainimg = document.getElementById('mainimg');
+    const textContainer = document.getElementById('textContainer');
+    const overlay = document.getElementById('overlay');
+    const text1 = document.getElementById('text1');
+    const text2 = document.getElementById('text2');
+    const text3 = document.getElementById('text3');
+
+    // メインの画像要素をフェードアウト
+    mainimg.style.opacity = '0';
+
+    // テキストコンテナをフェードイン
+    textContainer.style.opacity = '1';
+
+    // オーバーレイを表示
+    overlay.style.display = 'block';
 
     // テキストアニメーション開始
-    text1.classList.add('slide-in'); // 貴方の恋人になりたいを表示
+    text1.classList.add('slide-in');
     setTimeout(() => {
         text1.classList.remove('slide-in');
-        text2.style.opacity = '1'; // 互いに惹かれあってを表示
-        text2.classList.add('slide-in'); // 互いに惹かれあってをズームイン
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
         setTimeout(() => {
             text2.classList.remove('slide-in');
-            textContainer.classList.add('slide-out-right'); // 右にスライド
-            text3.style.opacity = '1'; // 僕達は出会ってしまうを表示
-            text3.classList.add('slide-in-left'); // 僕達は出会ってしまうを左から表示
-        }, 4000); // 4秒後に互いに惹かれあってのアニメーション終了
-    }, 3000); // 3秒後に貴方の恋人になりたいの表示終了
+            textContainer.classList.add('slide-out-right');
+            text3.style.opacity = '1';
+            text3.classList.add('slide-in-left');
+
+            // 背景スライドショーを開始
+            startBackgroundSlideshow();
+        }, 4000);
+    }, 3000);
 
     setTimeout(() => {
-        text2.style.opacity = '0'; // 互いに惹かれあってを非表示
-        text3.style.opacity = '0'; // 僕達は出会ってしまうを非表示
-    }, 8000); // 8秒後に互いに惹かれあってと僕達は出会ってしまうを非表示
+        text2.style.opacity = '0';
+        text3.style.opacity = '0';
+    }, 8000);
 
     setTimeout(() => {
         text2.textContent = '知らなくても大丈夫';
-        text2.style.opacity = '1'; // 知らなくても大丈夫を表示
-        text2.classList.add('slide-in'); // 知らなくても大丈夫をズームイン
-    }, 13000); // 13秒後に知らなくても大丈夫を表示
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 13000);
 
     setTimeout(() => {
-        text2.style.opacity = '0'; // 知らなくても大丈夫を非表示
-    }, 18000); // 18秒後に知らなくても大丈夫を非表示
+        text2.style.opacity = '0';
+    }, 18000);
 
     setTimeout(() => {
         text2.textContent = 'すれ違いの始まりはささくれみたい';
-        text2.style.opacity = '1'; // すれ違いの始まりはささくれみたいを表示
-        text2.classList.add('slide-in'); // すれ違いの始まりはささくれみたいをズームイン
-    }, 19000); // 19秒後にすれ違いの始まりはささくれみたいを表示
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 19000);
 
     setTimeout(() => {
-        text2.style.opacity = '0'; // すれ違いの始まりはささくれみたいを非表示
-    }, 23000); // 23秒後にすれ違いの始まりはささくれみたいを非表示
+        text2.style.opacity = '0';
+    }, 23000);
 
     setTimeout(() => {
         text2.textContent = '恋に落ちている';
-        text2.style.opacity = '1'; // 恋に落ちているを表示
-        text2.classList.add('slide-in'); // 恋に落ちているをズームイン
-    }, 24000); // 24秒後に恋に落ちているを表示
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 24000);
 
     setTimeout(() => {
-        text2.style.opacity = '0'; // 恋に落ちているを非表示
-    }, 28000); // 28秒後に恋に落ちているを非表示
+        text2.style.opacity = '0';
+    }, 28000);
 
     setTimeout(() => {
         text2.textContent = 'こっちを見てよ！';
-        text2.style.opacity = '1'; // こっちを見てよ！を表示
-        text2.classList.add('slide-in'); // こっちを見てよ！をズームイン
-    }, 30000); // 30秒後にこっちを見てよ！を表示
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 30000);
 
     setTimeout(() => {
-        text2.style.opacity = '0'; // こっちを見てよ！を非表示
-    }, 33000); // 33秒後にこっちを見てよ！を非表示
-
-    setTimeout(() => {
-        text2.textContent = '恋に落ちている';
-        text2.style.opacity = '1'; // 恋に落ちているを再表示
-        text2.classList.add('slide-in'); // 恋に落ちているをズームイン
-    }, 35000); // 35秒後に恋に落ちているを再表示
-
-    setTimeout(() => {
-        text2.style.opacity = '0'; // 恋に落ちているを非表示
-    }, 38000); // 38秒後に恋に落ちているを非表示
+        text2.style.opacity = '0';
+    }, 33000);
 
     setTimeout(() => {
         text2.textContent = '恋に落ちている';
-        text2.style.opacity = '1'; // 恋に落ちているを再表示
-        text2.classList.add('slide-in'); // 恋に落ちているをズームイン
-    }, 42000); // 42秒後に恋に落ちているを再表示
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 35000);
 
     setTimeout(() => {
-        text2.style.opacity = '0'; // 恋に落ちているを非表示
-    }, 46000); // 46秒後に恋に落ちているを非表示
+        text2.style.opacity = '0';
+    }, 38000);
+
+    setTimeout(() => {
+        text2.textContent = '恋に落ちている';
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 42000);
+
+    setTimeout(() => {
+        text2.style.opacity = '0';
+    }, 46000);
 
     setTimeout(() => {
         text2.textContent = 'チョコより甘い温度で溶ける';
-        text2.style.opacity = '1'; // チョコより甘い温度で溶けるを表示
-        text2.classList.add('slide-in'); // チョコより甘い温度で溶けるをズームイン
-    }, 47000); // 47秒後にチョコより甘い温度で溶けるを表示
-});
+        text2.style.opacity = '1';
+        text2.classList.add('slide-in');
+    }, 47000);
+
+    // 背景スライドショーを開始する関数
+    function startBackgroundSlideshow() {
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slide1 {
+                0% { opacity: 1; transform: scale(1.2); }
+                10% { opacity: 1; }
+                20% { opacity: 1; }
+                50% { opacity: 1; }
+                60% { opacity: 1; }
+                100% { opacity: 1; transform: scale(1.7); }
+            }
+
+            @keyframes slide2 {
+                0% { opacity: 1; transform: scale(1.7); }
+                10% { opacity: 1; }
+                20% { opacity: 1; }
+                50% { opacity: 1; }
+                60% { opacity: 1; }
+                100% { opacity: 1; transform: scale(1.2); }
+            }
+
+            @keyframes slide3 {
+                0% { opacity: 1; transform: scale(1.2); }
+                10% { opacity: 1; }
+                20% { opacity: 1; }
+                50% { opacity: 1; }
+                60% { opacity: 1; }
+                100% { opacity: 1; transform: scale(1.7); }
+            }
+
+            @keyframes slide4 {
+                0% { opacity: 1; transform: scale(1.7); }
+                10% { opacity: 1; }
+                20% { opacity: 1; }
+                50% { opacity: 1; }
+                60% { opacity: 1; }
+                100% { opacity: 1; transform: scale(1.2); }
+            }
+
+            /* 画像ブロック */
+            #mainimg {
+                clear: left;
+                text-indent: -9999px;
+                position: fixed; /* スクロールしても固定表示させる指定 */
+                top: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+
+            /* １枚目 */
+            .slide1 {
+                animation-name: slide1;
+            }
+            /* 2枚目 */
+            .slide2 {
+                animation-name: slide2;
+            }
+            /* 3枚目 */
+            .slide3 {
+                animation-name: slide3;
+            }
+            /* 4枚目 */
+            .slide4 {
+                animation-name: slide4;
+            }
+        `;
+
+        // head要素にスタイルを追加する
+        document.head.appendChild(style);
+
+        const backgrounds = [
+            './background1.jpg',
+            './background2.jpg',
+            './background3.jpg',
+            './background4.jpg'
+        ];
+        let currentBgIndex = 0;
+
+        function switchBackground() {
+            mainimg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
+            mainimg.className = `slide${currentBgIndex + 1}`;
+            currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
+        }
+
+        // 初期背景画像を設定
+        switchBackground();
+
+        // 15秒ごとに背景画像を切り替える
+        setInterval(switchBackground, 15000);
+    }
+}
+function createAndPlayAudio() {
+    // 音楽プレーヤーを作成
+    const audioElement = document.createElement('audio');
+    audioElement.id = 'musicplayer';
+    audioElement.loop = true; // ループ再生
+    audioElement.volume = 0.2; // 音量設定
+
+    // 音楽ファイルの設定
+    const sourceElement = document.createElement('source');
+    sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
+    sourceElement.type = 'audio/mpeg';
+
+    audioElement.appendChild(sourceElement); // <audio>要素に音楽ファイルを追加
+    document.body.appendChild(audioElement); // <body>要素に<audio>要素を追加
+
+    // 音楽を再生する
+    audioElement.play().then(() => {
+        console.log('音楽が再生されました');
+    }).catch(error => {
+        console.log('音楽の再生に失敗しました:', error);
+    });
+
+    // イベントリスナーを削除（再生が開始されたら不要）
+    document.body.removeEventListener('click', createAndPlayAudio);
+}
+
 </script>
 
 </body>

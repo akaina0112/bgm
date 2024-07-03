@@ -208,11 +208,10 @@
 <div id="mainimg2" style="display: none;"></div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
   const mainImgDiv = document.getElementById('mainimg');
   const mainImg2Div = document.getElementById('mainimg2');
-    mainImgDiv.style.display = 'block';
-    mainImg2Div.style.display = 'none';
+
   mainImgDiv.addEventListener('click', function() {
     mainImgDiv.style.display = 'none';
     mainImg2Div.style.display = 'block';
@@ -241,7 +240,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let index = 0;
 
     mainImg2Div.addEventListener('click', function() {
-      
       if (index < texts.length) {
         const textElement = document.createElement('div');
         textElement.classList.add('text');
@@ -250,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
         applyRandomAnimation(textElement);
         index++;
       }
-      console.log('クリックされた');
     });
 
     function applyRandomAnimation(element) {

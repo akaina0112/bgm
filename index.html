@@ -10,8 +10,7 @@
 </head>
 
 <body>
-<script>
-window.addEventListener('load', function() {
+<script>window.addEventListener('load', function() {
   // CSSを生成して追加
   const style = document.createElement('style');
   style.textContent = `
@@ -38,7 +37,6 @@ window.addEventListener('load', function() {
       height: 100%;
       z-index: -1;
       background: url(./background.jpg) no-repeat center center/cover;
-     // opacity: 0; /* 初期状態は非表示 */
       transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
     }
 
@@ -104,7 +102,70 @@ window.addEventListener('load', function() {
         transform: translateX(0);
       }
     }
-  `;
+
+    /* 画像ブロック */
+    #mainimg {
+      clear: left;
+      text-indent: -9999px;
+      position: fixed; /* スクロールしても固定表示させる指定 */
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* １枚目 */
+    .slide1 {
+      animation: slide1 15s infinite;
+    }
+    /* 2枚目 */
+    .slide2 {
+      animation: slide2 15s infinite;
+    }
+    /* 3枚目 */
+    .slide3 {
+      animation: slide3 15s infinite;
+    }
+    /* 4枚目 */
+    .slide4 {
+      animation: slide4 15s infinite;
+    }
+
+    @keyframes slide1 {
+      0% { opacity: 1; transform: scale(1.2); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.7); }
+    }
+
+    @keyframes slide2 {
+      0% { opacity: 1; transform: scale(1.7); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    @keyframes slide3 {
+      0% { opacity: 1; transform: scale(1.2); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.7); }
+    }
+
+    @keyframes slide4 {
+      0% { opacity: 1; transform: scale(1.7); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.2); }
+    }`;
   
   // head要素にCSSを追加
   document.head.appendChild(style);
@@ -139,236 +200,165 @@ window.addEventListener('load', function() {
 
   // 生成したテキストコンテナをbody要素に追加
   document.body.appendChild(textContainerDiv);
-});
 
-document.body.onclick = function() {
+  // mainimgをクリックした時にアニメーションを開始する
+  mainImgDiv.onclick = function() {
     createAndPlayAudio();
     anime();
-};
+  };
+
+});
+
 function anime() {
-    const mainimg = document.getElementById('mainimg');
-    const textContainer = document.getElementById('textContainer');
-    const overlay = document.getElementById('overlay');
-    const text1 = document.getElementById('text1');
-    const text2 = document.getElementById('text2');
-    const text3 = document.getElementById('text3');
+  const mainimg = document.getElementById('mainimg');
+  const textContainer = document.querySelector('.text-container'); // text-containerを取得する
+  const text1 = document.getElementById('text1');
+  const text2 = document.getElementById('text2');
+  const text3 = document.getElementById('text3');
 
-    // メインの画像要素をフェードアウト
-    mainimg.style.opacity = '0';
+  // メインの画像要素をフェードアウト
+  mainimg.style.opacity = '0';
 
-    // テキストコンテナをフェードイン
-    textContainer.style.opacity = '1';
+  // テキストコンテナをフェードイン
+  textContainer.style.opacity = '1';
 
-    // オーバーレイを表示
-    overlay.style.display = 'block';
-
-    // テキストアニメーション開始
-    text1.classList.add('slide-in');
+  // テキストアニメーション開始
+  text1.classList.add('slide-in');
+  setTimeout(() => {
+    text1.classList.remove('slide-in');
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
     setTimeout(() => {
-        text1.classList.remove('slide-in');
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-        setTimeout(() => {
-            text2.classList.remove('slide-in');
-            textContainer.classList.add('slide-out-right');
-            text3.style.opacity = '1';
-            text3.classList.add('slide-in-left');
+      text2.classList.remove('slide-in');
+      textContainer.classList.add('slide-out-right');
+      text3.style.opacity = '1';
+      text3.classList.add('slide-in-left');
 
-            // 背景スライドショーを開始
-            startBackgroundSlideshow();
-        }, 4000);
-    }, 3000);
+      // 背景スライドショーを開始
+      startBackgroundSlideshow();
+    }, 4000);
+  }, 3000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-        text3.style.opacity = '0';
-    }, 8000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+    text3.style.opacity = '0';
+  }, 8000);
 
-    setTimeout(() => {
-        text2.textContent = '知らなくても大丈夫';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 13000);
+  setTimeout(() => {
+    text2.textContent = '知らなくても大丈夫';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 13000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-    }, 18000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+  }, 18000);
 
-    setTimeout(() => {
-        text2.textContent = 'すれ違いの始まりはささくれみたい';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 19000);
+  setTimeout(() => {
+    text2.textContent = 'すれ違いの始まりはささくれみたい';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 19000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-    }, 23000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+  }, 23000);
 
-    setTimeout(() => {
-        text2.textContent = '恋に落ちている';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 24000);
+  setTimeout(() => {
+    text2.textContent = '恋に落ちている';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 24000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-    }, 28000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+  }, 28000);
 
-    setTimeout(() => {
-        text2.textContent = 'こっちを見てよ！';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 30000);
+  setTimeout(() => {
+    text2.textContent = 'こっちを見てよ！';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 30000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-    }, 33000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+  }, 33000);
 
-    setTimeout(() => {
-        text2.textContent = '恋に落ちている';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 35000);
+  setTimeout(() => {
+    text2.textContent = '恋に落ちている';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 35000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-    }, 38000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+  }, 38000);
 
-    setTimeout(() => {
-        text2.textContent = '恋に落ちている';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 42000);
+  setTimeout(() => {
+    text2.textContent = '恋に落ちている';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 42000);
 
-    setTimeout(() => {
-        text2.style.opacity = '0';
-    }, 46000);
+  setTimeout(() => {
+    text2.style.opacity = '0';
+  }, 46000);
 
-    setTimeout(() => {
-        text2.textContent = 'チョコより甘い温度で溶ける';
-        text2.style.opacity = '1';
-        text2.classList.add('slide-in');
-    }, 47000);
+  setTimeout(() => {
+    text2.textContent = 'チョコより甘い温度で溶ける';
+    text2.style.opacity = '1';
+    text2.classList.add('slide-in');
+  }, 47000);
 
-    // 背景スライドショーを開始する関数
-    function startBackgroundSlideshow() {
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slide1 {
-                0% { opacity: 1; transform: scale(1.2); }
-                10% { opacity: 1; }
-                20% { opacity: 1; }
-                50% { opacity: 1; }
-                60% { opacity: 1; }
-                100% { opacity: 1; transform: scale(1.7); }
-            }
+  // 背景スライドショーを開始する関数
+  function startBackgroundSlideshow() {
+    const backgrounds = [
+      './images/background.jpg',
+      './images/background2.jpg',
+      './images/background3.jpg',
+      './images/background4.jpg'
+    ];
+    let currentBgIndex = 0;
 
-            @keyframes slide2 {
-                0% { opacity: 1; transform: scale(1.7); }
-                10% { opacity: 1; }
-                20% { opacity: 1; }
-                50% { opacity: 1; }
-                60% { opacity: 1; }
-                100% { opacity: 1; transform: scale(1.2); }
-            }
-
-            @keyframes slide3 {
-                0% { opacity: 1; transform: scale(1.2); }
-                10% { opacity: 1; }
-                20% { opacity: 1; }
-                50% { opacity: 1; }
-                60% { opacity: 1; }
-                100% { opacity: 1; transform: scale(1.7); }
-            }
-
-            @keyframes slide4 {
-                0% { opacity: 1; transform: scale(1.7); }
-                10% { opacity: 1; }
-                20% { opacity: 1; }
-                50% { opacity: 1; }
-                60% { opacity: 1; }
-                100% { opacity: 1; transform: scale(1.2); }
-            }
-
-            /* 画像ブロック */
-            #mainimg {
-                clear: left;
-                text-indent: -9999px;
-                position: fixed; /* スクロールしても固定表示させる指定 */
-                top: 0;
-                width: 100%;
-                height: 100%;
-                z-index: -1;
-            }
-
-            /* １枚目 */
-            .slide1 {
-                animation-name: slide1;
-            }
-            /* 2枚目 */
-            .slide2 {
-                animation-name: slide2;
-            }
-            /* 3枚目 */
-            .slide3 {
-                animation-name: slide3;
-            }
-            /* 4枚目 */
-            .slide4 {
-                animation-name: slide4;
-            }
-        `;
-
-        // head要素にスタイルを追加する
-        document.head.appendChild(style);
-
-        const backgrounds = [
-            './images/background.jpg',
-            './images/background2.jpg',
-            './images/background3.jpg',
-            './images/background4.jpg'
-        ];
-        let currentBgIndex = 0;
-
-        function switchBackground() {
-            mainimg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
-            mainimg.className = `slide${currentBgIndex + 1}`;
-            currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
-        }
-
-        // 初期背景画像を設定
-        switchBackground();
-
-        // 15秒ごとに背景画像を切り替える
-        setInterval(switchBackground, 15000);
+    function switchBackground() {
+      mainimg.style.backgroundImage = `url(${backgrounds[currentBgIndex]})`;
+      mainimg.className = `slide${currentBgIndex + 1}`;
+      currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
     }
+
+    // 初期背景画像を設定
+    switchBackground();
+
+    // 15秒ごとに背景画像を切り替える
+    setInterval(switchBackground, 15000);
+  }
 }
+
 function createAndPlayAudio() {
-    // 音楽プレーヤーを作成
-    const audioElement = document.createElement('audio');
-    audioElement.id = 'musicplayer';
-    audioElement.loop = true; // ループ再生
-    audioElement.volume = 0.2; // 音量設定
+  // 音楽プレーヤーを作成
+  const audioElement = document.createElement('audio');
+  audioElement.id = 'musicplayer';
+  audioElement.loop = true; // ループ再生
+  audioElement.volume = 0.2; // 音量設定
 
-    // 音楽ファイルの設定
-    const sourceElement = document.createElement('source');
-    sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
-    sourceElement.type = 'audio/mpeg';
+  // 音楽ファイルの設定
+  const sourceElement = document.createElement('source');
+  sourceElement.src = 'https://akaina0112.github.io/Test/bgm.mp3';
+  sourceElement.type = 'audio/mpeg';
 
-    audioElement.appendChild(sourceElement); // <audio>要素に音楽ファイルを追加
-    document.body.appendChild(audioElement); // <body>要素に<audio>要素を追加
+  audioElement.appendChild(sourceElement); // <audio>要素に音楽ファイルを追加
+  document.body.appendChild(audioElement); // <body>要素に<audio>要素を追加
 
-    // 音楽を再生する
-    audioElement.play().then(() => {
-        console.log('音楽が再生されました');
-    }).catch(error => {
-        console.log('音楽の再生に失敗しました:', error);
-    });
+  // 音楽を再生する
+  audioElement.play().then(() => {
+    console.log('音楽が再生されました');
+  }).catch(error => {
+    console.log('音楽の再生に失敗しました:', error);
+  });
 
-    // イベントリスナーを削除（再生が開始されたら不要）
-    document.body.removeEventListener('click', createAndPlayAudio);
+  // イベントリスナーを削除（再生が開始されたら不要）
+  mainimg.removeEventListener('click', createAndPlayAudio);
 }
-
 </script>
 
 </body>

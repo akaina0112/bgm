@@ -38,7 +38,7 @@ window.addEventListener('load', function() {
       height: 100%;
       z-index: -1;
       background: url(./background.jpg) no-repeat center center/cover;
-      opacity: 0; /* 初期状態は非表示 */
+     // opacity: 0; /* 初期状態は非表示 */
       transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
     }
 
@@ -141,10 +141,10 @@ window.addEventListener('load', function() {
   document.body.appendChild(textContainerDiv);
 });
 
-document.body.addEventListener('click', function() {
-   createAndPlayAudio();
-   anime();
-});
+document.body.onclick = function() {
+    createAndPlayAudio();
+    anime();
+};
 function anime() {
     const mainimg = document.getElementById('mainimg');
     const textContainer = document.getElementById('textContainer');

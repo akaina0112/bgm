@@ -201,13 +201,11 @@
   // 生成したテキストコンテナをbody要素に追加
   document.body.appendChild(textContainerDiv);
 
-  // mainimgをクリックした時にアニメーションを開始する
-  mainImgDiv.onclick = function() {
+});
+document.body.onclick = function() {
     createAndPlayAudio();
     anime();
-  };
-
-});
+};
 
 function anime() {
   const mainimg = document.getElementById('mainimg');

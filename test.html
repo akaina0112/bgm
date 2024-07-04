@@ -84,13 +84,17 @@
     }
 
     function changeBackground() {
-      // 背景画像をランダムに切り替える
       var randomIndex = Math.floor(Math.random() * backgrounds.length);
       document.getElementById('background').style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
     }
-    
-    // 初期設定として最初の背景画像を表示
+
+    // 初回の背景画像表示
     changeBackground();
+
+    // アニメーション終了後に背景を切り替える
+    document.getElementById('background').addEventListener('animationiteration', function() {
+      changeBackground();
+    });
   </script>
 </body>
 </html>

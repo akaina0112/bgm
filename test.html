@@ -12,20 +12,21 @@
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    overflow: hidden; /* スクロールを禁止 */
   }
 
   #background {
-    position: absolute;
+    position: fixed; /* 背景を固定 */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-size: cover;
     background-color: #464646;
     animation: slideBackground 15s linear infinite; /* 背景画像のアニメーション */
+    z-index: -1; /* 計算機よりも背面に表示 */
   }
 
   @keyframes slideBackground {

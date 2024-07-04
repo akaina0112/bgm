@@ -48,8 +48,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
     z-index: 2;
   }
 
@@ -113,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     'テキスト8: チョコより甘い温度で溶ける'
   ];
   let index = 0;
+  let currentTextElement = null;
 
   mainImgDiv.addEventListener('click', function() {
     mainImgDiv.style.display = 'none';
@@ -123,11 +122,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function startTextAnimation() {
     mainImg2Div.addEventListener('click', function() {
       if (index < texts.length) {
+        if (currentTextElement) {
+          textContainer.removeChild(currentTextElement); // 前のテキストを削除
+        }
         const textElement = document.createElement('div');
         textElement.classList.add('text');
         textElement.textContent = texts[index];
         textContainer.appendChild(textElement);
         applyAnimation(textElement);
+        currentTextElement = textElement; // 現在のテキスト要素を更新
         index++;
       }
     });
@@ -144,8 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         element.classList.remove('fade-in', 'shine');
         element.style.opacity = '0';
-        textContainer.removeChild(element); // テキスト要素を削除する
-      }, 4000);
+      }, 4000); // 4000ミリ秒後にアニメーションを解除
     }
   }
 });

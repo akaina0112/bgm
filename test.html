@@ -11,37 +11,27 @@
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明の灰色 */
     font-family: Arial, sans-serif;
   }
 
   #background {
     position: absolute;
-    top: 0;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
     background-position: center;
-    animation: slide1 10s infinite alternate; /* 背景画像のアニメーション */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+    animation: slideBackground 15s linear infinite; /* 背景画像のアニメーション */
   }
 
-  @keyframes slide1 {
-    0% { opacity: 1; transform: scale(1.2); }
-    10% { opacity: 1; }
-    20% { opacity: 1; }
-    50% { opacity: 1; }
-    60% { opacity: 1; }
-    100% { opacity: 1; transform: scale(1.7); animation-name: slide2; }
-  }
-
-  @keyframes slide2 {
-    0% { opacity: 1; transform: scale(1.7); }
-    10% { opacity: 1; }
-    20% { opacity: 1; }
-    50% { opacity: 1; }
-    60% { opacity: 1; }
-    100% { opacity: 1; transform: scale(1.2); animation-name: slide1; }
+  @keyframes slideBackground {
+    0%, 100% { opacity: 1; transform: scale(1.2); }
+    10%, 20%, 50%, 60% { opacity: 1; transform: scale(1); }
+    30%, 40% { opacity: 1; transform: scale(1.7); }
   }
 
   .calculator {

@@ -74,7 +74,6 @@
 
 <body>
 <div class="text-container"></div>
-<div id="container" onclick="startTextAnimation()"><aside id="mainimg"><div class="slide2">slide2</div><div class="slide1">slide1</div></aside></div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const textContainer = document.querySelector('.text-container');
@@ -238,6 +237,7 @@ window.onload = function() {
 
   const mainimg = document.createElement('aside');
   mainimg.id = 'mainimg';
+  mainimg.onclick = 'startTextAnimation()';
 
   const slide1 = document.createElement('div');
   slide1.classList.add('slide1');

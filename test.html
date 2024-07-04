@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字の計算結果を表示する</title>
+</head>
+<body>
+  <p>計算したい数字を直接入力してください:</p>
+  <input type="number" id="inputNumber1">
+  <button onclick="calculate()">計算する</button>
+  <p id="result"></p>
+
+  <script>
+    function calculate() {
+      var num1 = parseFloat(document.getElementById('inputNumber1').value);
+      var result = num1; // ここでは加算を例としていますが、他の演算も可能です
+
+      document.getElementById('result').textContent = '計算結果は ' + result + ' です。';
+    }
+  </script>
+</body>
+</html>

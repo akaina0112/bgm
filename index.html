@@ -133,6 +133,12 @@ document.addEventListener('DOMContentLoaded', function() {
      // element.style.opacity = '0';
     }, 4000); // Remove animations after 4000 milliseconds
   }
+	  var mainImg = document.getElementById('mainimg');
+
+  // mainimg要素のクリックイベントに直接関数を設定する
+  mainImg.onclick = function() {
+    startTextAnimation();
+  };
             // 背景用のオーバーレイ要素を生成
             var overlay = document.createElement('div');
             overlay.id = 'overlay';

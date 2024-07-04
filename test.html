@@ -3,20 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数字の計算結果を表示する</title>
+<title>計算機</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の灰色 */
+    background-image: url('./images/background1.jpg'); /* 最初の背景画像 */
+    background-size: cover;
+    background-position: center;
+    animation: slide1 10s infinite alternate; /* アニメーションの設定 */
+    font-family: Arial, sans-serif;
+  }
+
+  @keyframes slide1 {
+    0% { opacity: 1; transform: scale(1.2); }
+    10% { opacity: 1; }
+    20% { opacity: 1; }
+    50% { opacity: 1; }
+    60% { opacity: 1; }
+    100% { opacity: 1; transform: scale(1.7); animation-name: slide2; }
+  }
+
+  @keyframes slide2 {
+    0% { opacity: 1; transform: scale(1.7); }
+    10% { opacity: 1; }
+    20% { opacity: 1; }
+    50% { opacity: 1; }
+    60% { opacity: 1; }
+    100% { opacity: 1; transform: scale(1.2); animation-name: slide1; }
+  }
+
+  .calculator {
+    max-width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: center;
+  }
+  input[type="text"] {
+    width: calc(100% - 10px);
+    font-size: 20px;
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: right;
+  }
+  input[type="button"] {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    margin: 5px;
+  }
+</style>
 </head>
 <body>
-  <p>計算したい数字を直接入力してください:</p>
-  <input type="number" id="inputNumber1">
-  <button onclick="calculate()">計算する</button>
-  <p id="result"></p>
+  <div class="calculator">
+    <input type="text" id="display" placeholder="計算式を入力">
+    <br>
+    <input type="button" value="=" onclick="calculate()">
+    <br>
+    <input type="button" value="C" onclick="clearDisplay()">
+  </div>
 
   <script>
+    var backgrounds = ['background1.jpg', 'background2.jpg', 'background3.jpg']; // 複数の背景画像を配列で用意
+
     function calculate() {
-      var num1 = parseFloat(document.getElementById('inputNumber1').value);
-      var result = num1; // ここでは加算を例としていますが、他の演算も可能です
-      document.getElementById('result').textContent = '計算結果は ' + result + ' です。';
-      console.log('計算結果:', result); // 結果をconsole.log()に表示
+      var input = document.getElementById('display').value;
+      var result = eval(input); // eval()を使用して文字列を計算式として評価します
+      document.getElementById('display').value = result;
+
+      // 背景画像をランダムに切り替える
+      var randomIndex = Math.floor(Math.random() * backgrounds.length);
+      document.body.style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
+    }
+
+    function clearDisplay() {
+      document.getElementById('display').value = '';
     }
   </script>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Touhou Little Maid</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Touhou Little Maid addon">
+<meta name="description" content="Touhou Little Maid　addon">
 <style>
   body {
     margin: 0;
@@ -42,7 +42,7 @@
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 2;
-    cursor: pointer; /* カーソルをポインターに設定 */
+    cursor: pointer; /* Add cursor pointer to indicate clickability */
   }
 
   .text {
@@ -54,7 +54,6 @@
     font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
     color: #ff69b4; /* ピンク色 */
     text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
-    display: none; /* 最初は非表示 */
   }
 
   /* フェードインアニメーション */
@@ -88,38 +87,68 @@
 <body>
 <div id="mainimg"></div>
 <div id="mainimg2"></div>
-<div class="text-container" onclick="startTextAnimation()"></div>
+<div class="text-container" onclick="startTextAnimation()">Click here to start</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const mainImgDiv = document.getElementById('mainimg');
   const mainImg2Div = document.getElementById('mainimg2');
   const textContainer = document.querySelector('.text-container');
+  
   const texts = [
-    'テキスト1: 貴方の恋人になりたい',
-    'テキスト2: 知らなくても大丈夫',
-    'テキスト3: すれ違いの始まりはささくれみたい',
-    'テキスト4: 恋に落ちている',
-    'テキスト5: こっちを見てよ！',
-    'テキスト6: 恋に落ちている',
-    'テキスト7: 恋に落ちている',
-    'テキスト8: チョコより甘い温度で溶ける'
+    '互いに惹かれあって',
+    '僕達は出会ってしまう',
+    '僕はいつか貴方の恋人になりたい',
+    '貴方は何も知らない',
+    '知らなくても大丈夫',
+    'すれ違いの始まりはささくれみたい',
+    '恋に落ちている　恋に落ちている',
+    '恋に落ちている　こっちを見てよ！',
+    '恋に落ちている　恋に落ちている',
+    'チョコより甘い温度で溶ける',
+    '貴方の好きな人',
+    '僕はまだ名前も知らない',
+    '貴方のせいです',
+    '素敵な横顔のせいで',
+    '話しかけることが出来ない でも',
+    '僕はいつか貴方の恋人になりたい',
+    'あのね　今',
+    '恋に落ちている　恋に落ちている',
+    'チョコより甘い温度で溶ける',
+    '恋に落ちている　恋に落ちている',
+    '恋に落ちている　こっちを見てよ！',
+    '恋に落ちている　恋に落ちている',
+    'チョコより甘い温度で溶ける',
+    '恋に落ちている　恋に落ちている',
+    'チョコより甘い温度で溶ける',
+    '互いに惹かれあって',
+    '僕達は出会ってしまう',
+    '僕はいつか貴方の恋人になりたい'
   ];
+  
   let index = 0;
+  let currentTextElement = null;
 
   function startTextAnimation() {
     mainImgDiv.style.display = 'none';
-    mainImg2Div.style.display = 'none';
-    const textElement = document.createElement('div');
-    textElement.classList.add('text');
-    textElement.textContent = texts[index];
-    textContainer.appendChild(textElement);
-    applyAnimation(textElement);
-    index++;
+    mainImg2Div.style.display = 'block';
+    
+    if (index < texts.length) {
+      if (currentTextElement) {
+        textContainer.removeChild(currentTextElement); // Remove previous text
+      }
+      
+      const textElement = document.createElement('div');
+      textElement.classList.add('text');
+      textElement.textContent = texts[index];
+      textContainer.appendChild(textElement);
+      applyAnimation(textElement);
+      currentTextElement = textElement; // Update current text element
+      index++;
+    }
   }
 
   function applyAnimation(element) {
-    element.style.display = 'block'; // テキストを表示する
     element.style.opacity = '0';
     element.classList.add('fade-in');
 
@@ -131,10 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       element.classList.remove('fade-in', 'shine');
       element.style.opacity = '0';
-      setTimeout(() => {
-        textContainer.removeChild(element); // テキストを削除する
-      }, 1000); // 削除までの待機時間
-    }, 4000); // 4000ミリ秒後にアニメーションを解除
+    }, 4000); // Remove animations after 4000 milliseconds
   }
 });
 </script>

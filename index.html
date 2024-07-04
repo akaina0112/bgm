@@ -112,25 +112,26 @@ document.addEventListener('DOMContentLoaded', function() {
     startTextAnimation();
   });
 
-  // テキストを順番に表示する関数
-  function startTextAnimation() {
-    // 前のテキストがあれば削除する
-    if (currentText) {
-      textContainer.removeChild(currentText);
-    }
-
-    // テキストが配列の範囲内であれば
-    if (index < texts.length) {
-      // 新しいテキスト要素を作成する
-      const textElement = document.createElement('div');
-      textElement.classList.add('text'); // .textクラスを追加する
-      textElement.textContent = texts[index]; // テキストコンテンツを設定する
-      textContainer.appendChild(textElement); // .text-containerにテキスト要素を追加する
-      applyAnimation(textElement); // テキストにアニメーションを適用する
-      currentText = textElement; // 現在のテキスト要素を更新する
-      index++; // インデックスをインクリメントする
-    }
+// テキストを順番に表示する関数
+function startTextAnimation() {
+  // 前のテキストがあれば削除する
+  if (currentText && textContainer.contains(currentText)) {
+    textContainer.removeChild(currentText);
   }
+
+  // テキストが配列の範囲内であれば
+  if (index < texts.length) {
+    // 新しいテキスト要素を作成する
+    const textElement = document.createElement('div');
+    textElement.classList.add('text'); // .textクラスを追加する
+    textElement.textContent = texts[index]; // テキストコンテンツを設定する
+    textContainer.appendChild(textElement); // .text-containerにテキスト要素を追加する
+    applyAnimation(textElement); // テキストにアニメーションを適用する
+    currentText = textElement; // 現在のテキスト要素を更新する
+    index++; // インデックスをインクリメントする
+  }
+}
+  
 
   // テキストにフェードインと光るアニメーションを適用する関数
   function applyAnimation(element) {

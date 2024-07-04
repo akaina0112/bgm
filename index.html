@@ -47,9 +47,7 @@
   .text {
     font-size: 2rem;
     margin-bottom: 20px;
-    opacity: 0;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
+    display: none; /* テキストを最初は非表示にする */
     font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
     color: #ff69b4; /* ピンク色 */
     text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
@@ -84,8 +82,8 @@
 </head>
 
 <body>
-<div id="mainimg" onclick="startTextAnimation()"></div>
-<div id="mainimg2"></div>
+<div id="mainimg"></div>
+<div id="mainimg2" onclick="startTextAnimation()"></div>
 <div class="text-container"></div>
 
 <script>
@@ -104,26 +102,20 @@ document.addEventListener('DOMContentLoaded', function() {
     'テキスト8: チョコより甘い温度で溶ける'
   ];
   let index = 0;
-  let currentTextElement = null;
 
   function startTextAnimation() {
     mainImgDiv.style.display = 'none';
-    mainImg2Div.style.display = 'block';
-    if (index < texts.length) {
-      if (currentTextElement) {
-        textContainer.removeChild(currentTextElement); // 前のテキストを削除
-      }
-      const textElement = document.createElement('div');
-      textElement.classList.add('text');
-      textElement.textContent = texts[index];
-      textContainer.appendChild(textElement);
-      applyAnimation(textElement);
-      currentTextElement = textElement; // 現在のテキスト要素を更新
-      index++;
-    }
+    mainImg2Div.style.display = 'none';
+    const textElement = document.createElement('div');
+    textElement.classList.add('text');
+    textElement.textContent = texts[index];
+    textContainer.appendChild(textElement);
+    applyAnimation(textElement);
+    index++;
   }
 
   function applyAnimation(element) {
+    element.style.display = 'block'; // テキストを表示する
     element.style.opacity = '0';
     element.classList.add('fade-in');
 
@@ -135,6 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       element.classList.remove('fade-in', 'shine');
       element.style.opacity = '0';
+      setTimeout(() => {
+        textContainer.removeChild(element); // テキストを削除する
+      }, 1000); // 削除までの待機時間
     }, 4000); // 4000ミリ秒後にアニメーションを解除
   }
 });

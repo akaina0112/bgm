@@ -150,18 +150,6 @@ var mainImg = document.getElementById('mainimg');
             overlay.style.zIndex = '1';
             document.body.appendChild(overlay);
 
-            // テキストを表示するコンテナ要素を生成
-            var textContainer = document.createElement('div');
-            textContainer.id = 'text-container';
-            textContainer.style.display = 'none'; // 最初は非表示
-            textContainer.style.position = 'fixed';
-            textContainer.style.top = '50%';
-            textContainer.style.left = '50%';
-            textContainer.style.transform = 'translate(-50%, -50%)';
-            textContainer.style.textAlign = 'center';
-            textContainer.style.color = 'white';
-            textContainer.style.zIndex = '2';
-
             // テキストコンテンツを生成
             var heading = document.createElement('h2');
             heading.textContent = 'akaina site';

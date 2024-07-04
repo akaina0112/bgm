@@ -52,16 +52,34 @@
     cursor: pointer; /* クリック可能を示すカーソルを追加 */
   }
 
-  .text {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    opacity: 0;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
-    color: #ff69b4; /* ピンク色 */
-    text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
+.text {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
+  color: #ff69b4; /* ピンク色 */
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
+  background-color: rgba(128, 128, 128, 0.5); /* 半透明の灰色背景 */
+  padding: 10px 20px; /* テキストのパディング */
+  border-radius: 10px; /* 角丸 */
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0.5;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+  100% {
+    opacity: 0.5;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+}
 
   /* フェードインアニメーション */
   @keyframes fadeIn {
@@ -70,22 +88,6 @@
     }
     to {
       opacity: 1;
-    }
-  }
-
-  /* 光るアニメーション */
-  @keyframes shine {
-    0% {
-      opacity: 0.5;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-      opacity: 1;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    }
-    100% {
-      opacity: 0.5;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     }
   }
 </style>
@@ -105,32 +107,32 @@ document.addEventListener('DOMContentLoaded', function() {
   const texts = [
     '互いに惹かれあって',
     '僕達は出会ってしまう',
-    '僕はいつか貴方の恋人になりたい',
+    '僕はいつか貴方の','恋人になりたい',
     '貴方は何も知らない',
     '知らなくても大丈夫',
-    'すれ違いの始まりはささくれみたい',
-    '恋に落ちている　恋に落ちている',
-    '恋に落ちている　こっちを見てよ！',
-    '恋に落ちている　恋に落ちている',
+    'すれ違いの始まりは','ささくれみたい',
+    '恋に落ちている','恋に落ちている',
+    '恋に落ちている','こっちを見てよ！',
+    '恋に落ちている','恋に落ちている',
     'チョコより甘い温度で溶ける',
     '貴方の好きな人',
     '僕はまだ名前も知らない',
     '貴方のせいです',
     '素敵な横顔のせいで',
-    '話しかけることが出来ない でも',
-    '僕はいつか貴方の恋人になりたい',
+    '話しかけることが出来ない','でも',
+    '僕はいつか貴方の','恋人になりたい',
     'あのね　今',
-    '恋に落ちている　恋に落ちている',
+    '恋に落ちている','恋に落ちている',
     'チョコより甘い温度で溶ける',
-    '恋に落ちている　恋に落ちている',
-    '恋に落ちている　こっちを見てよ！',
-    '恋に落ちている　恋に落ちている',
+    '恋に落ちている','恋に落ちている',
+    '恋に落ちている','こっちを見てよ！',
+    '恋に落ちている','恋に落ちている',
     'チョコより甘い温度で溶ける',
-    '恋に落ちている　恋に落ちている',
+    '恋に落ちている','恋に落ちている',
     'チョコより甘い温度で溶ける',
     '互いに惹かれあって',
     '僕達は出会ってしまう',
-    '僕はいつか貴方の恋人になりたい'
+    '僕はいつか貴方の','恋人になりたい'
   ];
   
   let index = 0;

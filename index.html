@@ -73,7 +73,6 @@
 </head>
 
 <body>
-	<div id="container"><aside id="mainimg"><div class="slide1" style="opacity: 0; animation: auto ease 0s 1 normal none running none;">slide1</div><div class="slide2" style="opacity: 1; animation: 5s linear 0s 1 normal forwards running slide2;">slide2</div></aside></div>
 <div class="text-container"></div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -237,6 +236,24 @@ window.onload = function() {
 
 
 
+  // JavaScriptで要素を作成する
+  const container = document.createElement('div');
+  container.id = 'container';
+
+  const mainimg = document.createElement('aside');
+  mainimg.id = 'mainimg';
+
+  const slide1 = document.createElement('div');
+  slide1.classList.add('slide1');
+  slide1.textContent = 'slide1';
+  const slide2 = document.createElement('div');
+  slide2.classList.add('slide2');
+  slide2.textContent = 'slide2';
+
+  mainimg.appendChild(slide1);
+  mainimg.appendChild(slide2);
+  container.appendChild(mainimg);
+  document.body.appendChild(container);
 
   // JavaScriptでCSSスタイルを適用する場合
   const style = document.createElement('style');

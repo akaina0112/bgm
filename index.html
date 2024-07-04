@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Touhou Little Maid</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Touhou Little Maid　addon">
+<meta name="description" content="Touhou Little Maidのアドオン">
 <style>
   body {
     margin: 0;
@@ -29,16 +29,6 @@
     z-index: 1;
     background: url(./background.jpg) no-repeat center center/cover;
     transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-  }
-
-  #mainimg2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: none;
   }
 
   .text-container {
@@ -93,13 +83,11 @@
 
 <body>
 <div id="mainimg"></div>
-<div id="mainimg2"></div>
 <div class="text-container"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const mainImgDiv = document.getElementById('mainimg');
-  const mainImg2Div = document.getElementById('mainimg2');
   const textContainer = document.querySelector('.text-container');
 
   const texts = [
@@ -114,39 +102,53 @@ document.addEventListener('DOMContentLoaded', function() {
   ];
 
   let index = 0;
+  let currentText = null;
 
+  // #mainimg要素がクリックされたときの処理
   mainImgDiv.addEventListener('click', function() {
-    mainImgDiv.style.display = 'none';
-    mainImg2Div.style.display = 'block';
+    // #mainimg要素を非表示にする
+ //   mainImgDiv.style.display = 'none';
+    // テキストアニメーションを開始する関数を呼び出す
     startTextAnimation();
   });
 
+  // テキストを順番に表示する関数
   function startTextAnimation() {
-    mainImg2Div.addEventListener('click', function() {
-      if (index < texts.length) {
-        const textElement = document.createElement('div');
-        textElement.classList.add('text');
-        textElement.textContent = texts[index];
-        textContainer.appendChild(textElement);
-        applyAnimation(textElement);
-        index++;
-      }
-    });
-
-    function applyAnimation(element) {
-      element.style.opacity = '0';
-      element.classList.add('fade-in');
-
-      setTimeout(() => {
-        element.style.opacity = '1';
-        element.classList.add('shine');
-      }, 100);
-
-      setTimeout(() => {
-        element.classList.remove('fade-in', 'shine');
-        element.style.opacity = '0';
-      }, 4000);
+    // 前のテキストがあれば削除する
+    if (currentText) {
+      textContainer.removeChild(currentText);
     }
+
+    // テキストが配列の範囲内であれば
+    if (index < texts.length) {
+      // 新しいテキスト要素を作成する
+      const textElement = document.createElement('div');
+      textElement.classList.add('text'); // .textクラスを追加する
+      textElement.textContent = texts[index]; // テキストコンテンツを設定する
+      textContainer.appendChild(textElement); // .text-containerにテキスト要素を追加する
+      applyAnimation(textElement); // テキストにアニメーションを適用する
+      currentText = textElement; // 現在のテキスト要素を更新する
+      index++; // インデックスをインクリメントする
+    }
+  }
+
+  // テキストにフェードインと光るアニメーションを適用する関数
+  function applyAnimation(element) {
+    element.style.opacity = '0'; // テキスト要素の初期透明度を設定する
+    element.classList.add('fade-in'); // .fade-inクラスを追加する
+
+    // 100ミリ秒後に透明度を変更してフェードインする
+    setTimeout(() => {
+      element.style.opacity = '1';
+      element.classList.add('shine'); // 光るアニメーションを追加する
+    }, 100);
+
+    // クリックされたらフェードインと光るアニメーションを解除して透明度を変更する
+    element.addEventListener('click', function() {
+      element.classList.remove('fade-in', 'shine');
+      element.style.opacity = '0'; // テキスト要素を透明にする
+      textContainer.removeChild(element); // テキスト要素を削除する
+    });
   }
 });
 </script>

@@ -61,7 +61,7 @@
 </style>
 </head>
 <body>
-  <div id="background" onclick="changeBackground()"></div>
+  <div id="background"></div>
   <div class="calculator">
     <input type="text" id="display" placeholder="計算式を入力">
     <br>
@@ -88,6 +88,9 @@
       var randomIndex = Math.floor(Math.random() * backgrounds.length);
       document.getElementById('background').style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
     }
+    
+    // 初期設定として最初の背景画像を表示
+    changeBackground();
   </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Touhou Little Maid</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Touhou Little Maid　addon">
+<meta name="description" content="Touhou Little Maid addon">
 <style>
   body {
     margin: 0;
@@ -42,15 +42,19 @@
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 2;
+    cursor: pointer; /* カーソルをポインターに設定 */
   }
 
   .text {
     font-size: 2rem;
     margin-bottom: 20px;
-    display: none; /* テキストを最初は非表示にする */
+    opacity: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
     font-family: 'Sawarabi Mincho', sans-serif; /* カワイイフォントの適用 */
     color: #ff69b4; /* ピンク色 */
     text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* テキストの影 */
+    display: none; /* 最初は非表示 */
   }
 
   /* フェードインアニメーション */
@@ -83,8 +87,8 @@
 
 <body>
 <div id="mainimg"></div>
-<div id="mainimg2" onclick="startTextAnimation()"></div>
-<div class="text-container"></div>
+<div id="mainimg2"></div>
+<div class="text-container" onclick="startTextAnimation()"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

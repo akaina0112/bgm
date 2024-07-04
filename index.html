@@ -20,28 +20,6 @@
     height: 100vh;
   }
 
-  #mainimg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: url(./background.jpg) no-repeat center center/cover;
-    transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-  }
-
-  #mainimg2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: url(./images/background.jpg) no-repeat center center/cover;
-    transition: opacity 1s ease-in-out; /* フェードイン用のトランジション */
-  }
-
   .text-container {
     position: absolute;
     top: 50%;
@@ -95,14 +73,10 @@
 </head>
 
 <body>
-<div id="mainimg"></div>
-<div id="mainimg2" onclick="startTextAnimation()"></div>
 <div class="text-container"></div>
-
+<div id="container" onclick="startTextAnimation()"><aside id="mainimg"><div class="slide2">slide2</div><div class="slide1">slide1</div></aside></div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const mainImgDiv = document.getElementById('mainimg');
-  const mainImg2Div = document.getElementById('mainimg2');
   const textContainer = document.querySelector('.text-container');
   
   const texts = [
@@ -260,22 +234,7 @@ window.onload = function() {
 
             // openModal関数を実行する例として、ページ読み込み時に実行する
             openModal();
-  
-  // コンテンツ領域のスタイルをJavaScriptで設定する
-  const content = document.createElement('div');
-  content.classList.add('content');
-  content.style.padding = '20px';
-  content.style.marginTop = '20vh'; /* コンテンツを上にオフセット */
-  content.style.textAlign = 'center';
-  content.style.color = 'white';
-  content.style.fontSize = '24px';
-  content.style.zIndex = '1'; /* コンテンツが背景の上に表示されるように設定 */
-  content.textContent = '音楽を再生する';
-  document.body.appendChild(content);
 
-  // JavaScriptで要素を作成する
-  const container = document.createElement('div');
-  container.id = 'container';
 
   const mainimg = document.createElement('aside');
   mainimg.id = 'mainimg';
@@ -290,7 +249,6 @@ window.onload = function() {
   mainimg.appendChild(slide1);
   mainimg.appendChild(slide2);
   container.appendChild(mainimg);
-  document.body.appendChild(container);
 
   // JavaScriptでCSSスタイルを適用する場合
   const style = document.createElement('style');

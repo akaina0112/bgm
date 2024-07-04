@@ -15,8 +15,8 @@
     function calculate() {
       var num1 = parseFloat(document.getElementById('inputNumber1').value);
       var result = num1; // ここでは加算を例としていますが、他の演算も可能です
-
       document.getElementById('result').textContent = '計算結果は ' + result + ' です。';
+      console.log('計算結果:', result); // 結果をconsole.log()に表示
     }
   </script>
 </body>

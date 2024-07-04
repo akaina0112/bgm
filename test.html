@@ -25,8 +25,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #464646;
-    animation: slideBackground 15s linear infinite; /* 背景画像のアニメーション */
     z-index: -1; /* 計算機よりも背面に表示 */
+    animation: slideBackground 5s linear infinite; /* 背景画像のアニメーション（5秒間隔） */
   }
 
   @keyframes slideBackground {
@@ -61,7 +61,7 @@
 </style>
 </head>
 <body>
-  <div id="background"></div>
+  <div id="background" onclick="changeBackground()"></div>
   <div class="calculator">
     <input type="text" id="display" placeholder="計算式を入力">
     <br>
@@ -77,14 +77,16 @@
       var input = document.getElementById('display').value;
       var result = eval(input); // eval()を使用して文字列を計算式として評価します
       document.getElementById('display').value = result;
-
-      // 背景画像をランダムに切り替える
-      var randomIndex = Math.floor(Math.random() * backgrounds.length);
-      document.getElementById('background').style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
     }
 
     function clearDisplay() {
       document.getElementById('display').value = '';
+    }
+
+    function changeBackground() {
+      // 背景画像をランダムに切り替える
+      var randomIndex = Math.floor(Math.random() * backgrounds.length);
+      document.getElementById('background').style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
     }
   </script>
 </body>

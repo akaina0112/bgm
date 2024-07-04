@@ -12,11 +12,18 @@
     height: 100vh;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.5); /* 半透明の灰色 */
-    background-image: url('images/background.jpg'); /* 最初の背景画像 */
+    font-family: Arial, sans-serif;
+  }
+
+  #background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-    animation: slide1 10s infinite alternate; /* アニメーションの設定 */
-    font-family: Arial, sans-serif;
+    animation: slide1 10s infinite alternate; /* 背景画像のアニメーション */
   }
 
   @keyframes slide1 {
@@ -44,6 +51,7 @@
     border-radius: 5px;
     background-color: #fff;
     text-align: center;
+    z-index: 1; /* 計算機を背景よりも前面に表示 */
   }
   input[type="text"] {
     width: calc(100% - 10px);
@@ -62,6 +70,7 @@
 </style>
 </head>
 <body>
+  <div id="background"></div>
   <div class="calculator">
     <input type="text" id="display" placeholder="計算式を入力">
     <br>
@@ -80,7 +89,7 @@
 
       // 背景画像をランダムに切り替える
       var randomIndex = Math.floor(Math.random() * backgrounds.length);
-      document.body.style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
+      document.getElementById('background').style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
     }
 
     function clearDisplay() {

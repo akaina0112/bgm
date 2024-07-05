@@ -133,12 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
      // element.style.opacity = '0';
     }, 4000); // Remove animations after 4000 milliseconds
   }
-	  var mainImg = document.getElementById('mainimg');
-
-  // mainimg要素のクリックイベントに直接関数を設定する
-  mainImg.onclick = function() {
-    startTextAnimation();
-  };
             // 背景用のオーバーレイ要素を生成
             var overlay = document.createElement('div');
             overlay.id = 'overlay';
@@ -217,6 +211,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // JavaScriptで要素を作成する
   const container = document.createElement('div');
   container.id = 'container';
+// クリックイベントの追加
+container.addEventListener('click', function() {
+    // クリックされたときの処理をここに記述する
+    console.log('Containerがクリックされました。');
+	window.startTextAnimation();
+});
 
   const mainimg = document.createElement('aside');
   mainimg.id = 'mainimg';

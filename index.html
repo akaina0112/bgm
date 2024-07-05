@@ -8,9 +8,89 @@
 <meta name="description" content="Touhou Little Maid addon">
 <style>
   body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    font-family: 'Sawarabi Mincho', sans-serif;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* スクロールを禁止 */
   }
+
+    /* CSSスライドショー設定 */
+    @keyframes slide1 {
+      0% { opacity: 1; transform: scale(1.2); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.7); animation: slide2 5s linear forwards; }
+    }
+
+    @keyframes slide2 {
+      0% { opacity: 1; transform: scale(1.7); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.2); animation: slide1 5s linear forwards; }
+    }
+
+    /* 画像ブロック */
+    #mainimg {
+      clear: left;
+      text-indent: -9999px;
+      position: fixed; /* スクロールしても固定表示させる指定 */
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* １枚目 */
+    .slide1 {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-color: #464646;
+      animation-timing-function: linear;
+      animation-duration: 15s; /* 実行する時間。「s」は秒の事。 */
+      animation-iteration-count: infinite; /* 実行する回数。「infinite」は無限に繰り返す意味。 */
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      animation-fill-mode: both;
+      animation-delay: 1s;
+      background: url(./images/background.jpg) no-repeat center center/cover;
+      animation-name: slide1; /* 上で設定しているキーフレーム（keyframes）の名前 */
+    } 
+    /* 2枚目 */
+    .slide2 {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-color: #464646;
+      animation-timing-function: linear;
+      animation-duration: 15s; /* 実行する時間。「s」は秒の事。 */
+      animation-iteration-count: infinite; /* 実行する回数。「infinite」は無限に繰り返す意味。 */
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      animation-fill-mode: both;
+      animation-delay: 1s;
+      background: url(./images/background2.jpg) no-repeat center center/cover;
+      animation-name: slide2; /* 上で設定しているキーフレーム（keyframes）の名前 */
+    }
+
+@keyframes slideBackground {
+  0%, 10%, 20%, 30%, 40%, 50%, 60%, 100%  { opacity: 1; transform: scale(1.7); }
+}
 
   .text-container {
     position: fixed;
@@ -35,20 +115,6 @@
     border-radius: 10px;
   }
 
-  @keyframes shine {
-    0% {
-      opacity: 0.5;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-      opacity: 1;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    }
-    100% {
-      opacity: 0.5;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-  }
 
   @keyframes fadeIn {
     from {
@@ -59,41 +125,7 @@
     }
   }
 
-  #container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-  }
 
-  .slide1, .slide2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    background-size: cover;
-    background-position: center;
-    animation: slide 10s linear infinite;
-  }
-
-  .slide1 {
-    background-image: url('images/background.jpg');
-  }
-
-  .slide2 {
-    background-image: url('images/background2.jpg');
-  }
-
-  @keyframes slide {
-    0%, 20% {
-      opacity: 1;
-    }
-    25%, 100% {
-      opacity: 0;
-    }
-  }
 </style>
 </head>
 
@@ -102,14 +134,31 @@
   <div class="text"></div>
 </div>
 
-<div id="container">
-  <div class="slide1"></div>
-  <div class="slide2"></div>
-</div>
+  <div id="background"></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+      // JavaScriptで要素を作成する
+  const container = document.createElement('div');
+  container.id = 'container';
+
+  const mainimg = document.createElement('aside');
+  mainimg.id = 'mainimg';
+
+  const slide1 = document.createElement('div');
+  slide1.classList.add('slide1');
+  slide1.textContent = 'slide1';
+  const slide2 = document.createElement('div');
+  slide2.classList.add('slide2');
+  slide2.textContent = 'slide2';
+
+  mainimg.appendChild(slide1);
+  mainimg.appendChild(slide2);
+  container.appendChild(mainimg);
+  document.body.appendChild(container);
+    
     const textContainer = document.querySelector('.text-container');
+  
     const texts = [
       '互いに惹かれあって',
       '僕達は出会ってしまう',
@@ -170,29 +219,28 @@
     document.body.addEventListener('click', startTextAnimation);
     startTextAnimation(); // 最初のテキストを表示する
 
-    function switchSlide() {
-      const slide1 = document.querySelector('.slide1');
-      const slide2 = document.querySelector('.slide2');
+  function switchSlide() {
+    slide1.style.opacity = '1'; // 初期状態でslide1を表示
 
-      slide1.style.opacity = '1';
-      slide1.style.animation = 'slide 10s linear infinite';
+    slide1.addEventListener('animationend', function() {
+      // slide1のアニメーションが終了したら、次の画像（slide2）へ切り替える
+      slide1.style.opacity = '0'; // 現在の画像をフェードアウトさせる
+      slide2.style.opacity = '1'; // 次の画像をフェードインさせる
+      slide1.style.animation = 'none'; // アニメーションをリセット
+      slide2.style.animation = 'slide2 5s linear forwards'; // slide2のアニメーションを開始
+    });
 
-      slide1.addEventListener('animationend', function() {
-        slide1.style.opacity = '0';
-        slide1.style.animation = 'none';
-        slide2.style.opacity = '1';
-        slide2.style.animation = 'slide 10s linear infinite';
-      });
+    slide2.addEventListener('animationend', function() {
+      // slide2のアニメーションが終了したら、次の画像（slide1）へ切り替える
+      slide2.style.opacity = '0'; // 現在の画像をフェードアウトさせる
+      slide1.style.opacity = '1'; // 次の画像をフェードインさせる
+      slide2.style.animation = 'none'; // アニメーションをリセット
+      slide1.style.animation = 'slide1 5s linear forwards'; // slide1のアニメーションを開始
+    });
 
-      slide2.addEventListener('animationend', function() {
-        slide2.style.opacity = '0';
-        slide2.style.animation = 'none';
-        slide1.style.opacity = '1';
-        slide1.style.animation = 'slide 10s linear infinite';
-      });
-    }
-
-    switchSlide(); // スライドショーのアニメーションを開始する
+    // 初期アニメーションを開始
+    slide1.style.animation = 'slide1 5s linear forwards';
+  }
   });
 </script>
 

@@ -100,22 +100,21 @@ document.addEventListener('DOMContentLoaded', function() {
   let index = 0;
   let currentTextElement = null;
 
-  window.startTextAnimation = function() {
-    
-    if (index < texts.length) {
-      if (currentTextElement) {
-        textContainer.removeChild(currentTextElement); // Remove previous text
+    function startTextAnimation() {
+      if (index < texts.length) {
+        if (currentTextElement) {
+          textContainer.removeChild(currentTextElement);
+        }
+        
+        const textElement = document.createElement('div');
+        textElement.classList.add('text');
+        textElement.textContent = texts[index];
+        textContainer.appendChild(textElement);
+        applyAnimation(textElement);
+        currentTextElement = textElement;
+        index++;
       }
-      
-      const textElement = document.createElement('div');
-      textElement.classList.add('text');
-      textElement.textContent = texts[index];
-      textContainer.appendChild(textElement);
-      applyAnimation(textElement);
-      currentTextElement = textElement; // Update current text element
-      index++;
     }
-  };
 
   function applyAnimation(element) {
     element.style.opacity = '0';
@@ -213,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
 container.addEventListener('click', function() {
     // クリックされたときの処理をここに記述する
     console.log('Containerがクリックされました。');
-	window.startTextAnimation();
+	startTextAnimation();
 });
 
   const mainimg = document.createElement('aside');

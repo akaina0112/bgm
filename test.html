@@ -44,7 +44,7 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
-      background-color: #464646;
+   /*   background-color: #464646;*/
       animation-timing-function: linear;
       animation-duration: 15s; /* 実行する時間。「s」は秒の事。 */
       animation-iteration-count: infinite; /* 実行する回数。「infinite」は無限に繰り返す意味。 */
@@ -64,7 +64,7 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
-      background-color: #464646;
+   /*   background-color: #464646;*/
       animation-timing-function: linear;
       animation-duration: 15s; /* 実行する時間。「s」は秒の事。 */
       animation-iteration-count: infinite; /* 実行する回数。「infinite」は無限に繰り返す意味。 */
@@ -128,8 +128,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
       // JavaScriptで要素を作成する
-  const container = document.createElement('div');
-  container.id = 'container';
 
   const mainimg = document.createElement('aside');
   mainimg.id = 'mainimg';
@@ -144,7 +142,6 @@
   mainimg.appendChild(slide1);
   mainimg.appendChild(slide2);
   container.appendChild(mainimg);
-  document.body.appendChild(container);
     
     const textContainer = document.querySelector('.text-container');
   

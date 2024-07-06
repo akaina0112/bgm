@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     downloadLink.style.display = 'block';
     downloadButton.href = urlWithTags;
+    // ファイル名の展開を修正
     downloadButton.download = `edited_${file.name}`;
   });
 });

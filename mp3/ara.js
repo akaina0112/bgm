@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let audioBuffer = null;
   let albumArtBlob = null;
+  let uploadedFile = null;
 
   // AudioContextを作成
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -32,8 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
   uploadForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const file = fileInput.files[0];
-    const reader = new FileReader();
+    uploadedFile = file; // アップロードされたファイルを保持する
 
+    const reader = new FileReader();
     reader.onload = function(event) {
       const arrayBuffer = event.target.result;
       audioContext.decodeAudioData(arrayBuffer, function(buffer) {
@@ -43,12 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('デコードエラー', err);
       });
     };
-
     reader.readAsArrayBuffer(file);
   });
 
   updateMetadataButton.addEventListener('click', function() {
-    if (!audioBuffer || !albumArtBlob) return;
+    if (!audioBuffer || !albumArtBlob || !uploadedFile) return;
 
     const metaData = {
       title: titleInput.value,
@@ -70,6 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadLink.style.display = 'block';
     downloadButton.href = urlWithTags;
     // ファイル名の展開を修正
-    downloadButton.download = `edited_${file.name}`;
+    downloadButton.download = `edited_${uploadedFile.name}`;
   });
 });

@@ -2,99 +2,237 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>計算機</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Touhou Little Maid</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Touhou Little Maid addon">
 <style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* スクロールを禁止 */
-  }
 
-  #background {
-    position: fixed; /* 背景を固定 */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #464646;
-    z-index: -1; /* 計算機よりも背面に表示 */
-    animation: slideBackground 5s linear infinite; /* 背景画像のアニメーション（5秒間隔） */
-  }
+    /* CSSスライドショー設定 */
+    @keyframes slide1 {
+      0% { opacity: 1; transform: scale(1.2); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.7); animation: slide2 5s linear forwards; }
+    }
+
+    @keyframes slide2 {
+      0% { opacity: 1; transform: scale(1.7); }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1.2); animation: slide1 5s linear forwards; }
+    }
+
+    /* 画像ブロック */
+    #mainimg {
+      clear: left;
+      text-indent: -9999px;
+      position: fixed; /* スクロールしても固定表示させる指定 */
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* １枚目 */
+    .slide1 {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-color: #464646;
+      animation-timing-function: linear;
+      animation-duration: 15s; /* 実行する時間。「s」は秒の事。 */
+      animation-iteration-count: infinite; /* 実行する回数。「infinite」は無限に繰り返す意味。 */
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      animation-fill-mode: both;
+      animation-delay: 1s;
+      background: url(./images/background.jpg) no-repeat center center/cover;
+      animation-name: slide1; /* 上で設定しているキーフレーム（keyframes）の名前 */
+    } 
+    /* ２枚目 */
+    .slide2 {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-color: #464646;
+      animation-timing-function: linear;
+      animation-duration: 15s; /* 実行する時間。「s」は秒の事。 */
+      animation-iteration-count: infinite; /* 実行する回数。「infinite」は無限に繰り返す意味。 */
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      animation-fill-mode: both;
+      animation-delay: 1s;
+      background: url(./images/background2.jpg) no-repeat center center/cover;
+      animation-name: slide2; /* 上で設定しているキーフレーム（keyframes）の名前 */
+    }
 
 @keyframes slideBackground {
-  0%, 10%, 20%, 30% { opacity: 1; transform: scale(1.7); }
-  40%, 50%, 60%, 100% { opacity: 1; transform: scale(1.2); }
+  0%, 10%, 20%, 30%, 40%, 50%, 60%, 100%  { opacity: 1; transform: scale(1.7); }
 }
 
+  .text-container {
+  }
 
-  .calculator {
-    max-width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
+  .text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 1; /* 計算機を背景よりも前面に表示 */
+    z-index: 2;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 1s forwards, shine 3s infinite 1s;
+    font-weight: bold;
+    color: #ff69b4;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+    background-color: rgba(128, 128, 128, 0.5); /* 背景色に透明度を追加 */
+    padding: 10px 20px;
+    border-radius: 10px;
   }
-  input[type="text"] {
-    width: calc(100% - 10px);
-    font-size: 20px;
-    margin: 5px;
-    padding: 5px;
-    box-sizing: border-box;
-    text-align: right;
+
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
-  input[type="button"] {
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
-    margin: 5px;
-  }
+
+
 </style>
 </head>
+
 <body>
-  <div id="background"></div>
-  <div class="calculator">
-    <input type="text" id="display" placeholder="計算式を入力">
-    <br>
-    <input type="button" value="=" onclick="calculate()">
-    <br>
-    <input type="button" value="C" onclick="clearDisplay()">
-  </div>
+<div class="text-container">
+  <div class="text"></div>
+</div>
 
-  <script>
-    var backgrounds = ['images/background.jpg', 'images/background2.jpg', 'images/background3.jpg', 'images/background4.jpg']; // 複数の背景画像を配列で用意
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // JavaScriptで要素を作成する
+  const container = document.createElement('div');
+  container.id = 'container';
 
-    function calculate() {
-      var input = document.getElementById('display').value;
-      var result = eval(input); // eval()を使用して文字列を計算式として評価します
-      document.getElementById('display').value = result;
+  const mainimg = document.createElement('aside');
+  mainimg.id = 'mainimg';
+
+  const slide1 = document.createElement('div');
+  slide1.classList.add('slide1');
+  slide1.textContent = 'slide1';
+  const slide2 = document.createElement('div');
+  slide2.classList.add('slide2');
+  slide2.textContent = 'slide2';
+
+  mainimg.appendChild(slide1);
+  mainimg.appendChild(slide2);
+  container.appendChild(mainimg);
+  document.body.appendChild(container);
+    
+    const textContainer = document.querySelector('.text-container');
+  
+    const texts = [
+      '互いに惹かれあって',
+      '僕達は出会ってしまう',
+      '僕はいつか貴方の','恋人になりたい',
+      '貴方は何も知らない',
+      '知らなくても大丈夫',
+      'すれ違いの始まりは','ささくれみたい',
+      '恋に落ちている','恋に落ちている',
+      '恋に落ちている','こっちを見てよ！',
+      '恋に落ちている','恋に落ちている',
+      'チョコより甘い温度で溶ける',
+      '貴方の好きな人',
+      '僕はまだ名前も知らない',
+      '貴方のせいです',
+      '素敵な横顔のせいで',
+      '話しかけることが出来ない','でも',
+      '僕はいつか貴方の','恋人になりたい',
+      'あのね','今',
+      '恋に落ちている','恋に落ちている',
+      'チョコより甘い温度で溶ける',
+      '恋に落ちている','恋に落ちている',
+      '恋に落ちている','こっちを見てよ！',
+      '恋に落ちている','恋に落ちている',
+      'チョコより甘い温度で溶ける',
+      '恋に落ちている','恋に落ちている',
+      'チョコより甘い温度で溶ける',
+      '互いに惹かれあって',
+      '僕達は出会ってしまう',
+      '僕はいつか貴方の','恋人になりたい'
+    ];
+    
+    let index = 0;
+    let currentTextElement = null;
+
+    function startTextAnimation() {
+      if (index < texts.length) {
+        if (currentTextElement) {
+          textContainer.removeChild(currentTextElement);
+        }
+        
+        const textElement = document.createElement('div');
+        textElement.classList.add('text');
+        textElement.textContent = texts[index];
+        textContainer.appendChild(textElement);
+        applyAnimation(textElement);
+        currentTextElement = textElement;
+        index++;
+      }
     }
 
-    function clearDisplay() {
-      document.getElementById('display').value = '';
+    function applyAnimation(element) {
+      element.style.opacity = '0';
+      setTimeout(() => {
+        element.style.opacity = '1';
+      }, 100);
     }
 
-    function changeBackground() {
-      var randomIndex = Math.floor(Math.random() * backgrounds.length);
-      document.getElementById('background').style.backgroundImage = 'url(' + backgrounds[randomIndex] + ')';
-    }
+    document.body.addEventListener('click', startTextAnimation);
+    startTextAnimation(); // 最初のテキストを表示する
 
-    // 初回の背景画像表示
-    changeBackground();
+  function switchSlide() {
+    slide1.style.opacity = '1'; // 初期状態でslide1を表示
 
-    // アニメーション終了後に背景を切り替える
-    document.getElementById('background').addEventListener('animationiteration', function() {
-      changeBackground();
+    slide1.addEventListener('animationend', function() {
+      // slide1のアニメーションが終了したら、次の画像（slide2）へ切り替える
+      slide1.style.opacity = '0'; // 現在の画像をフェードアウトさせる
+      slide2.style.opacity = '1'; // 次の画像をフェードインさせる
+      slide1.style.animation = 'none'; // アニメーションをリセット
+      slide2.style.animation = 'slide2 5s linear forwards'; // slide2のアニメーションを開始
     });
-  </script>
+
+    slide2.addEventListener('animationend', function() {
+      // slide2のアニメーションが終了したら、次の画像（slide1）へ切り替える
+      slide2.style.opacity = '0'; // 現在の画像をフェードアウトさせる
+      slide1.style.opacity = '1'; // 次の画像をフェードインさせる
+      slide2.style.animation = 'none'; // アニメーションをリセット
+      slide1.style.animation = 'slide1 5s linear forwards'; // slide1のアニメーションを開始
+    });
+
+    // 初期アニメーションを開始
+    slide1.style.animation = 'slide1 5s linear forwards';
+  }
+  switchSlide(); 
+  });
+</script>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Touhou Little Maid</title>
+<title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Touhou Little Maid addon">
 <style>
@@ -228,6 +228,7 @@
                 // OKボタンがクリックされたときの処理
                 closeOverlay();
 	        createAndPlayAudio();
+	        closeOverlay2();
             };
             textContainer.appendChild(okButton);
 
@@ -255,6 +256,7 @@
             // openModal関数を実行する例として、ページ読み込み時に実行する
             openModal();
       // JavaScriptで要素を作成する
+	function closeOverlay2() {
   const container = document.createElement('div');
   container.id = 'container';
 
@@ -334,7 +336,7 @@
 
 　　document.getElementById('mainimg').addEventListener('click', startTextAnimation);
     startTextAnimation(); // 最初のテキストを表示する
-
+	}
   function switchSlide() {
     slide1.style.opacity = '1'; // 初期状態でslide1を表示
 

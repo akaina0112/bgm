@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
   let albumArtBlob = null;
   let uploadedFile = null;
 
-  // AudioContextを作成
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  if (!albumArtInput) {
+    console.error('albumArtInputが見つかりません');
+    return;
+  }
 
   // アルバムアートのプレビューを表示する
   albumArtInput.addEventListener('change', function(event) {
@@ -29,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
       albumArtBlob = file;
     }
   });
-
   uploadForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const file = fileInput.files[0];

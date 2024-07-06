@@ -3,23 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
 <title>MP3 Metadata Editor</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 50px;
-  }
-  #uploadForm {
-    margin-bottom: 20px;
-  }
-  img {
-    max-width: 200px;
-    max-height: 200px;
-    margin-top: 20px;
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>MP3 Metadata Editor</h1>
@@ -43,6 +29,6 @@
     <a id="downloadButton" download>ここをクリックしてダウンロード</a>
   </div>
 
-<script src="ara.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>

@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
   let audioBuffer = null;
   let albumArtBlob = null;
   let uploadedFile = null;
-
+/*
   if (!albumArtInput) {
     console.error('albumArtInputが見つかりません');
     return;
   }
-
+*/
   // アルバムアートのプレビューを表示する
   albumArtInput.addEventListener('change', function(event) {
     const file = event.target.files[0];

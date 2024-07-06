@@ -1,0 +1,13 @@
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+  }
+  #uploadForm {
+    margin-bottom: 20px;
+  }
+  img {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 20px;
+  }

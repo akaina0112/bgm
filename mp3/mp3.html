@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MP3 Metadata Editor</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+  }
+  #uploadForm {
+    margin-bottom: 20px;
+  }
+  img {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <h1>MP3 Metadata Editor</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" accept=".mp3" required>
+    <button type="submit">アップロード</button>
+  </form>
+  <div id="metadataForm" style="display: none;">
+    <label for="title">題名:</label>
+    <input type="text" id="title" required><br><br>
+    <label for="artist">アーティスト:</label>
+    <input type="text" id="artist" required><br><br>
+    <label for="coverArt">アイコン (カバーアート):</label>
+    <input type="file" id="coverArtInput" accept="image/jpeg, image/png">
+    <img id="coverArtPreview" src="#" alt="カバーアート">
+    <br><br>
+    <button id="updateMetadata">メタデータを更新</button>
+  </div>
+  <div id="downloadLink" style="display: none;">
+    <h2>編集されたファイルのダウンロード</h2>
+    <a id="downloadButton" download>ここをクリックしてダウンロード</a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const uploadForm = document.getElementById('uploadForm');
+  const fileInput = document.getElementById('fileInput');
+  const metadataForm = document.getElementById('metadataForm');
+  const titleInput = document.getElementById('title');
+  const artistInput = document.getElementById('artist');
+  const albumArtInput = document.getElementById('albumArt');
+  const updateMetadataButton = document.getElementById('updateMetadata');
+  const downloadLink = document.getElementById('downloadLink');
+  const downloadButton = document.getElementById('downloadButton');
+
+  let audioBuffer = null;
+  let albumArtBlob = null;
+
+  uploadForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      const arrayBuffer = event.target.result;
+      context.decodeAudioData(arrayBuffer, function(buffer) {
+        audioBuffer = buffer;
+        metadataForm.style.display = 'block';
+      }, function(err) {
+        console.error('デコードエラー', err);
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  });
+
+  albumArtInput.addEventListener('change', function() {
+    const albumArtFile = albumArtInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      albumArtBlob = event.target.result;
+    };
+
+    reader.readAsDataURL(albumArtFile);
+  });
+
+  updateMetadataButton.addEventListener('click', function() {
+    if (!audioBuffer) return;
+
+    const metaData = {
+      title: titleInput.value,
+      artist: artistInput.value
+    };
+
+    const blob = new Blob([audioBuffer], { type: 'audio/mp3' });
+    const url = URL.createObjectURL(blob);
+
+    const reader = new FileReader();
+    reader.onloadend = function() {
+      const arrayBuffer = reader.result;
+      const writer = new ID3Writer(arrayBuffer);
+      writer.setFrame('TIT2', metaData.title);
+      writer.setFrame('TPE1', [metaData.artist]);
+
+      if (albumArtBlob) {
+        const base64String = albumArtBlob.split(',')[1];
+        const byteArray = atob(base64String);
+
+        const uint8Array = new Uint8Array(byteArray.length);
+        for (let i = 0; i < byteArray.length; i++) {
+          uint8Array[i] = byteArray.charCodeAt(i);
+        }
+
+        writer.setFrame('APIC', {
+          type: 3, // 3はアルバムの表紙を表します
+          data: uint8Array,
+          description: '',
+          mimeType: 'image/jpeg' // ここをアルバムアートのフォーマットに合わせて変更します
+        });
+      }
+
+      const blobWithTags = new Blob([writer.arrayBuffer], { type: 'audio/mp3' });
+      const urlWithTags = URL.createObjectURL(blobWithTags);
+
+      downloadLink.style.display = 'block';
+      downloadButton.href = urlWithTags;
+      downloadButton.download = `edited_${file.name}`;
+    };
+
+    reader.readAsArrayBuffer(blob);
+  });
+});
+
+  </script>
+</body>
+</html>

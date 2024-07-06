@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // アルバムアートのプレビューを表示する
-  albumArtInput.addEventListener('change', function(event) {
+  albumArtInput.addEventListener('change', handleAlbumArtChange);
+
+  function handleAlbumArtChange(event) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       reader.readAsDataURL(file);
       albumArtBlob = file;
     }
-  });
+  }
 
   if (uploadForm && fileInput && metadataForm && updateMetadataButton && downloadLink && downloadButton) {
     uploadForm.addEventListener('submit', function(event) {
